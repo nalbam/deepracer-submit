@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
-pytest submit.py
+# pip3 install pytest
+# pip3 install selenium
+
+python3 submit.py
