@@ -1,0 +1,28 @@
+version: 2
+jobs:
+  report:
+    docker:
+      - image: opspresso/builder
+    working_directory: /tmp/works
+    steps:
+      - checkout
+      - run:
+          name: Check Points
+          command: |
+            bash ./report.sh
+
+workflows:
+  version: 2
+  # apply:
+  #   jobs:
+  #     - report
+  nightly:
+    jobs:
+      - report
+    triggers:
+      - schedule:
+          cron: "0 * * * *"
+          filters:
+            branches:
+              only:
+                - master
