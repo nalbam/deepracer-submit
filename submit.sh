@@ -6,6 +6,6 @@ pushd ${SHELL_DIR}
 
 mkdir -p build
 
-pytest submit.py
+python3 submit.py
 
 popd
