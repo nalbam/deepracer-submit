@@ -8,6 +8,8 @@ jobs:
       - run:
           name: Submit
           command: |
+            pip3 install pytest
+            pip3 install selenium
             python3 ./submit.py
 
 workflows:
