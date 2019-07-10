@@ -33,7 +33,8 @@ browser.find_element_by_id('signin_button').click()
 
 time.sleep(5)
 
-browser.get('https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/submitModel'.format(model))
+browser.get(
+    'https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/submitModel'.format(model))
 
 time.sleep(5)
 
@@ -41,4 +42,6 @@ browser.find_element_by_class_name('awsui-button-variant-primary').click()
 
 time.sleep(5)
 
-browser.save_screenshot('screenshot.png')
+browser.save_screenshot('build/screenshot.png')
+
+browser.close()

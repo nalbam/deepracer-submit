@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-sudo pip3 install pytest
-sudo pip3 install selenium
+SHELL_DIR=$(dirname $0)
+
+pushd ${SHELL_DIR}
+
+mkdir -p build
 
 pytest submit.py
+
+popd
