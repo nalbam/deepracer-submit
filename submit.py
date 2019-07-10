@@ -20,8 +20,7 @@ options.add_argument('--disable-gpu')
 # options.add_argument('--single-process')
 # options.add_argument('--disable-dev-shm-usage')
 
-browser = webdriver.Chrome(
-    executable_path='/usr/lib/chromium-browser/chromedriver', options=options)
+browser = webdriver.Chrome(options=options)
 
 # browser = webdriver.Chrome('/usr/local/bin/chromedriver')
 # browser = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver')
