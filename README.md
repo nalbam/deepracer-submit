@@ -27,3 +27,9 @@ export model="model"
 ```bash
 bash submit.sh
 ```
+
+## crontab
+
+```bash
+*/10 * * * * /home/pi/deepracer-submit/submit.sh >> /home/pi/deepracer-submit.log 2>&1
+```
