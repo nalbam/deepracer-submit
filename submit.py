@@ -38,3 +38,7 @@ browser.get('https://console.aws.amazon.com/deepracer/home?region=us-east-1#mode
 time.sleep(5)
 
 browser.find_element_by_class_name('awsui-button-variant-primary').click()
+
+time.sleep(5)
+
+browser.save_screenshot('screenshot.png')
