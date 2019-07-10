@@ -14,15 +14,15 @@ password = os.environ.get('password', 'password')
 model = os.environ.get('model', 'model')
 
 
-# options = Options()
+options = Options()
 # options.add_argument('--headless')
 # options.add_argument('--no-sandbox')
 # options.add_argument('--single-process')
 # options.add_argument('--disable-dev-shm-usage')
 
-browser = webdriver.Firefox()
+# browser = webdriver.Firefox()
 # browser = webdriver.Chrome('/usr/local/bin/chromedriver')
-# browser = webdriver.Chrome(chrome_options=options)
+browser = webdriver.Chrome(chrome_options=options)
 
 browser.get('https://{}.signin.aws.amazon.com/console'.format(userno))
 
