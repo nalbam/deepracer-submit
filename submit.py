@@ -2,8 +2,9 @@ import os
 import time
 # import pytest
 
+from pyvirtualdisplay import Display
 from selenium import webdriver
-# from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options import Options
 
 
 userno = os.environ.get('userno', '123456789012')
@@ -14,15 +15,18 @@ password = os.environ.get('password', 'password')
 model = os.environ.get('model', 'model')
 
 
-# options = Options()
+display = Display(visible=0, size=(800, 600))
+display.start()
+
+options = Options()
 # options.add_argument('--headless')
 # options.add_argument('--no-sandbox')
 # options.add_argument('--single-process')
 # options.add_argument('--disable-dev-shm-usage')
 
 # browser = webdriver.Firefox()
-browser = webdriver.Chrome('/usr/local/bin/chromedriver')
-# browser = webdriver.Chrome(chrome_options=options)
+# browser = webdriver.Chrome('/usr/local/bin/chromedriver')
+browser = webdriver.Chrome(chrome_options=options)
 
 browser.get('https://{}.signin.aws.amazon.com/console'.format(userno))
 
@@ -45,3 +49,5 @@ time.sleep(5)
 browser.save_screenshot('build/screenshot.png')
 
 browser.close()
+
+display.stop()
