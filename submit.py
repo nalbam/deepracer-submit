@@ -27,7 +27,7 @@ browser = webdriver.Chrome(options=options)
 
 browser.get('https://{}.signin.aws.amazon.com/console'.format(userno))
 
-browser.find_element_by_name('username').send_keys(username)
+browser.find_element_by_id('username').send_keys(username)
 browser.find_element_by_id('password').send_keys(password)
 
 browser.find_element_by_id('signin_button').click()
