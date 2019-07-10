@@ -1,28 +1,27 @@
 version: 2
 jobs:
-  report:
+  submit:
     docker:
-      - image: opspresso/builder
-    working_directory: /tmp/works
+      - image: circleci/python:jessie-node-browsers
     steps:
       - checkout
       - run:
-          name: Check Points
+          name: Submit
           command: |
-            bash ./report.sh
+            python3 ./submit.py
 
 workflows:
   version: 2
-  # apply:
-  #   jobs:
-  #     - report
-  nightly:
+  apply:
     jobs:
-      - report
-    triggers:
-      - schedule:
-          cron: "0 * * * *"
-          filters:
-            branches:
-              only:
-                - master
+      - submit
+  # nightly:
+  #   jobs:
+  #     - submit
+  #   triggers:
+  #     - schedule:
+  #         cron: "0,10,20,30,40,50 * * * *"
+  #         filters:
+  #           branches:
+  #             only:
+  #               - master

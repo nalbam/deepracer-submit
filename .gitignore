@@ -20,6 +20,10 @@ $RECYCLE.BIN/
 *.war
 *.ear
 
+# pytest
+__pycache__
+.pytest_cache
+
 # maven
 target/
 build/
