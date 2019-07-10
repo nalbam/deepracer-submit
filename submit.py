@@ -2,7 +2,6 @@ import os
 import time
 # import pytest
 
-from pyvirtualdisplay import Display
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -14,9 +13,6 @@ password = os.environ.get('password', 'password')
 
 model = os.environ.get('model', 'model')
 
-
-display = Display(visible=0, size=(800, 600))
-display.start()
 
 options = Options()
 # options.add_argument('--headless')
@@ -49,5 +45,3 @@ time.sleep(5)
 browser.save_screenshot('build/screenshot.png')
 
 browser.close()
-
-display.stop()
