@@ -10,16 +10,18 @@ sudo apt install chromium-chromedriver
 pip3 install pytest
 pip3 install selenium
 pip3 install xvfbwrapper
+pip3 install slacker
 ```
 
 ## config
 
 ```bash
 # config/deepracer-model.sh
-export userno="123456789012"
-export username="username"
-export password="password"
-export model="model"
+export USERNO="123456789012"
+export USERNAME="username"
+export PASSWORD="password"
+export MODEL="model"
+export SLACK_TOKEN=""
 ```
 
 ## usage

@@ -13,8 +13,8 @@ if [ -f config/deepracer-model.sh ]; then
     . config/deepracer-model.sh
 fi
 
-if [ "${model_url}" != "" ]; then
-    export model="$(curl -sL ${model_url} | xargs)"
+if [ "${MODEL_URL}" != "" ]; then
+    export MODEL="$(curl -sL ${MODEL_URL} | xargs)"
 fi
 
 python3 submit.py
