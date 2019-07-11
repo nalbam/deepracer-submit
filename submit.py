@@ -67,10 +67,11 @@ def post_slack(text):
     try:
         slack = Slacker(slack_token)
 
-        obj = slack.chat.post_message(slack_channal, text)
-        # slack.files.upload('build/screenshot.png')
+        # obj = slack.chat.post_message(slack_channal, text)
+        # print(obj.successful, obj.__dict__['body']['channel'], obj.__dict__['body']['ts'])
 
-        print(obj.successful, obj.__dict__['body']['channel'], obj.__dict__['body']['ts'])
+        file = '{}/build/screenshot.png'.format(os.getcwd())
+        slack.files.upload(file, channels=[slack_channal], title=text)
 
     except KeyError as ex:
         print('Environment variable %s not set.' % str(ex))
@@ -94,4 +95,4 @@ if __name__ == '__main__':
 
     colse_browser(browser)
 
-    # post_slack('submit')
+    post_slack('screenshot')
