@@ -13,7 +13,7 @@ password = os.environ.get('password')
 model = os.environ.get('model', 'model')
 
 
-def get_browser():
+def open_browser():
     options = Options()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
@@ -29,7 +29,11 @@ def get_browser():
     return browser
 
 
-def login(browser):
+def colse_browser(browser):
+    browser.close()
+
+
+def login_aws(browser):
     browser.get('https://{}.signin.aws.amazon.com/console'.format(userno))
 
     browser.find_element_by_id('username').send_keys(username)
@@ -40,7 +44,7 @@ def login(browser):
     time.sleep(5)
 
 
-def submit(browser):
+def submit_model(browser):
     browser.get(
         'https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/submitModel'.format(model))
 
@@ -51,8 +55,6 @@ def submit(browser):
     time.sleep(5)
 
     browser.save_screenshot('build/screenshot.png')
-
-    browser.close()
 
 
 if __name__ == '__main__':
@@ -65,8 +67,10 @@ if __name__ == '__main__':
     if password is None or password == '':
         raise ValueError('password')
 
-    browser = get_browser()
+    browser = open_browser()
 
-    login(browser)
+    login_aws(browser)
 
-    submit(browser)
+    submit_model(browser)
+
+    colse_browser(browser)
