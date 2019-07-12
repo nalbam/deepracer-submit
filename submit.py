@@ -38,7 +38,11 @@ def colse_browser(browser):
 
 
 def login_aws(browser):
-    browser.get('https://{}.signin.aws.amazon.com/console'.format(userno))
+    print('login_aws')
+
+    url='https://{}.signin.aws.amazon.com/console'.format(userno)
+
+    browser.get(url)
 
     browser.find_element_by_id('username').send_keys(username)
     browser.find_element_by_id('password').send_keys(password)
@@ -49,8 +53,11 @@ def login_aws(browser):
 
 
 def submit_model(browser):
-    browser.get(
-        'https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/submitModel'.format(model_name))
+    print('submit_model')
+
+    url='https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/submitModel'.format(model_name)
+
+    browser.get(url)
 
     time.sleep(5)
 
@@ -61,8 +68,25 @@ def submit_model(browser):
     browser.save_screenshot('build/screenshot.png')
 
 
+def result(browser):
+    print('result')
+
+    url='https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logs-insights:'
+    url='https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logs-insights:queryDetail=~(end~0~start~-3600~timeType~\'RELATIVE~unit~\'seconds~editorString~\'fields*20*40timestamp*2c*20*40message*0a*7c*20filter*20*40message*20*3d*7e*20*27SIM_TRACE_LOG*27*20and*20*40message*20*3d*7e*20*270*2cTrue*27*0a*7c*20order*20by*20*40timestamp*20desc*2c*20*40message*20desc~isLiveTail~false~queryId~\'8aeb83df-0aad-441b-a22c-b2c3ac57aafe~source~(~\'*2faws*2fdeepracer*2fleaderboard*2fSimulationJobs))'
+
+    browser.get(url)
+
+    time.sleep(5)
+
+    browser.find_element_by_class_name('scroll-query-command-button').click()
+
+    time.sleep(15)
+
+    browser.save_screenshot('build/screenshot.png')
+
+
 def post_slack(text):
-    # print(text)
+    print('post_slack')
 
     try:
         slack = Slacker(slack_token)
@@ -94,5 +118,7 @@ if __name__ == '__main__':
     submit_model(browser)
 
     colse_browser(browser)
+
+    # result(browser)
 
     post_slack(model_name)
