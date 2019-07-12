@@ -95,4 +95,4 @@ if __name__ == '__main__':
 
     colse_browser(browser)
 
-    post_slack('screenshot')
+    post_slack(model_name)
