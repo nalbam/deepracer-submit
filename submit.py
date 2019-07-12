@@ -67,7 +67,9 @@ def submit_model(browser):
 
     time.sleep(5)
 
-    # browser.save_screenshot('build/screenshot.png')
+    browser.save_screenshot('build/screenshot.png')
+
+    post_slack(model_name)
 
 
 def result(browser):
@@ -88,6 +90,8 @@ def result(browser):
     time.sleep(5)
 
     browser.save_screenshot('build/screenshot.png')
+
+    post_slack(model_name)
 
 
 def post_slack(text):
@@ -126,4 +130,4 @@ if __name__ == '__main__':
 
     colse_browser(browser)
 
-    post_slack(model_name)
+    # post_slack(model_name)
