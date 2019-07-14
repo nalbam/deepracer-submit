@@ -68,7 +68,7 @@ def submit_model(browser):
 
     time.sleep(5)
 
-    browser.save_screenshot('build/screenshot.png')
+    browser.save_screenshot('build/submit.png')
 
     # post_slack(model_name)
 
@@ -90,7 +90,7 @@ def result(browser):
 
     time.sleep(5)
 
-    browser.save_screenshot('build/screenshot.png')
+    browser.save_screenshot('build/result.png')
 
     # post_slack(model_name)
 
@@ -104,8 +104,11 @@ def post_slack(text):
         # obj = slack.chat.post_message(slack_channal, text)
         # print(obj.successful, obj.__dict__['body']['channel'], obj.__dict__['body']['ts'])
 
-        file = '{}/build/screenshot.png'.format(os.getcwd())
+        file = '{}/build/submit.png'.format(os.getcwd())
         slack.files.upload(file, channels=[slack_channal], title=text)
+
+        # file = '{}/build/result.png'.format(os.getcwd())
+        # slack.files.upload(file, channels=[slack_channal], title=text)
 
     except KeyError as ex:
         print('Environment variable %s not set.' % str(ex))
