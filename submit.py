@@ -42,7 +42,7 @@ def colse_browser(browser):
 def login_aws(browser):
     print('login_aws')
 
-    url='https://{}.signin.aws.amazon.com/console'.format(userno)
+    url = 'https://{}.signin.aws.amazon.com/console'.format(userno)
 
     browser.get(url)
 
@@ -57,7 +57,8 @@ def login_aws(browser):
 def submit_model(browser):
     print('submit_model')
 
-    url='https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/submitModel'.format(model_name)
+    url = 'https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/submitModel'.format(
+        model_name)
 
     browser.get(url)
 
@@ -69,14 +70,14 @@ def submit_model(browser):
 
     browser.save_screenshot('build/screenshot.png')
 
-    post_slack(model_name)
+    # post_slack(model_name)
 
 
 def result(browser):
     print('result')
 
     # url='https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logs-insights:'
-    url='https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logs-insights:queryDetail=~(end~0~start~-3600~timeType~\'RELATIVE~unit~\'seconds~editorString~\'fields*20*40message*0a*7c*20filter*20*40message*20*3d*7e*20*27SIM_TRACE_LOG*27*20and*20*40message*20*3d*7e*20*270*2cTrue*27*0a*7c*20order*20by*20*40timestamp*20desc*2c*20*40message*20desc~isLiveTail~false~queryId~\'479f81d1-dea9-44e5-b204-867c4ca32173~source~(~\'*2faws*2fdeepracer*2fleaderboard*2fSimulationJobs))'
+    url = 'https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logs-insights:queryDetail=~(end~0~start~-3600~timeType~\'RELATIVE~unit~\'seconds~editorString~\'fields*20*40message*0a*7c*20filter*20*40message*20*3d*7e*20*27SIM_TRACE_LOG*27*20and*20*40message*20*3d*7e*20*270*2cTrue*27*0a*7c*20order*20by*20*40timestamp*20desc*2c*20*40message*20desc~isLiveTail~false~queryId~\'479f81d1-dea9-44e5-b204-867c4ca32173~source~(~\'*2faws*2fdeepracer*2fleaderboard*2fSimulationJobs))'
 
     browser.get(url)
 
@@ -91,7 +92,7 @@ def result(browser):
 
     browser.save_screenshot('build/screenshot.png')
 
-    post_slack(model_name)
+    # post_slack(model_name)
 
 
 def post_slack(text):
@@ -126,8 +127,8 @@ if __name__ == '__main__':
 
     submit_model(browser)
 
-    result(browser)
+    # result(browser)
 
     colse_browser(browser)
 
-    # post_slack(model_name)
+    post_slack(model_name)
