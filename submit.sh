@@ -24,8 +24,6 @@ if [ "${MODEL_URL}" != "" ]; then
 
     COUNT=$(cat ${MODELS} | wc -l | xargs)
 
-    echo "COUNT: ${COUNT}"
-
     # random
     if [ "${COUNT}" -gt "1" ]; then
         if [ "${OS_NAME}" == "darwin" ]; then
@@ -37,7 +35,7 @@ if [ "${MODEL_URL}" != "" ]; then
         RND=1
     fi
 
-    echo "RND: ${RND}"
+    echo "${RND} / ${COUNT}"
 
     # get one
     if [ ! -z ${RND} ]; then
@@ -47,6 +45,6 @@ fi
 
 echo "MODEL: ${MODEL}"
 
-# python3 submit.py
+python3 submit.py
 
 popd
