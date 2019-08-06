@@ -25,7 +25,7 @@ if [ "${MODEL_URL}" != "" ]; then
     COUNT=$(cat ${MODELS} | wc -l | xargs)
 
     # random
-    if [ "${COUNT}" -gt "1" ]; then
+    if [ "${COUNT}" -gt 1 ]; then
         if [ "${OS_NAME}" == "darwin" ]; then
             RND=$(ruby -e "p rand(1...${COUNT})")
         else
