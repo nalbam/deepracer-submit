@@ -49,6 +49,8 @@ _load "${PROFILE_URL}"
 echo "PROFILE: ${SELECTED}"
 
 if [ "${SELECTED}" != "" ] && [ -f config/${SELECTED}.sh ]; then
+    export PROFILE="${SELECTED}"
+
     source config/${SELECTED}.sh
 fi
 
