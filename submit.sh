@@ -4,6 +4,8 @@ OS_NAME="$(uname | awk '{print tolower($0)}')"
 
 SHELL_DIR=$(dirname $0)
 
+PROFILE=$1
+
 pushd ${SHELL_DIR}
 
 git pull
@@ -16,9 +18,13 @@ if [ -f config/deepracer-model.sh ]; then
 fi
 
 _load() {
+    SELECTED=
+
     URL=$1
 
-    SELECTED=
+    if [ "${URL}" == "" ]; then
+        return
+    fi
 
     TMP=build/temp.txt
 
@@ -44,14 +50,16 @@ _load() {
 }
 
 # PROFILE
-_load "${PROFILE_URL}"
+if [ "${PROFILE}" == "" ]; then
+    _load "${PROFILE_URL}"
 
-echo "PROFILE: ${SELECTED}"
+    PROFILE="${SELECTED:-$PROFILE}"
+fi
 
-if [ "${SELECTED}" != "" ] && [ -f config/${SELECTED}.sh ]; then
-    export PROFILE="${SELECTED}"
+echo "PROFILE: ${PROFILE}"
 
-    source config/${SELECTED}.sh
+if [ -f config/${PROFILE}.sh ]; then
+    source config/${PROFILE}.sh
 fi
 
 # MODEL

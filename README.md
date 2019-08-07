@@ -39,5 +39,5 @@ bash submit.sh
 ## crontab
 
 ```bash
-*/12 * * * * /home/pi/deepracer-submit/submit.sh >> /home/pi/deepracer-submit.log 2>&1
+0,12,24,36,48 * * * * /home/pi/deepracer-submit/submit.sh > /tmp/deepracer-submit.log 2>&1
 ```
