@@ -6,6 +6,8 @@ from selenium.webdriver.chrome.options import Options
 from slacker import Slacker
 
 
+profile = os.environ.get('PROFILE')
+
 userno = os.environ.get('USERNO')
 
 username = os.environ.get('USERNAME')
@@ -134,4 +136,4 @@ if __name__ == '__main__':
 
     colse_browser(browser)
 
-    post_slack(model_name)
+    post_slack('%s : %s' % (profile, model_name))
