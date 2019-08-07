@@ -12,19 +12,20 @@ mkdir -p build
 mkdir -p config
 
 if [ -f config/deepracer-model.sh ]; then
-    . config/deepracer-model.sh
+    source config/deepracer-model.sh
 fi
 
-if [ "${MODEL_URL}" != "" ]; then
-    # export MODEL="$(curl -sL ${MODEL_URL} | xargs)"
+_load() {
+    URL=$1
 
-    MODELS=config/models.txt
+    SELECTED=
 
-    curl -sL ${MODEL_URL} > ${MODELS}
+    TMP=build/temp.txt
 
-    COUNT=$(cat ${MODELS} | wc -l | xargs)
+    curl -sL ${URL} > ${TMP}
 
-    # random
+    COUNT=$(cat ${TMP} | wc -l | xargs)
+
     if [ "${COUNT}" -gt 1 ]; then
         if [ "${OS_NAME}" == "darwin" ]; then
             RND=$(ruby -e "p rand(1...${COUNT})")
@@ -37,14 +38,30 @@ if [ "${MODEL_URL}" != "" ]; then
 
     echo "${RND} / ${COUNT}"
 
-    # get one
     if [ ! -z ${RND} ]; then
-        export MODEL=$(sed -n ${RND}p ${MODELS})
+        SELECTED=$(sed -n ${RND}p ${TMP})
     fi
+}
+
+# PROFILE
+_load "${PROFILE_URL}"
+
+echo "PROFILE: ${SELECTED}"
+
+if [ "${SELECTED}" != "" ] && [ -f config/${SELECTED}.sh ]; then
+    source config/${SELECTED}.sh
 fi
 
-echo "MODEL: ${MODEL}"
+# MODEL
+_load "${MODEL_URL}"
 
+echo "MODEL: ${SELECTED}"
+
+if [ "${SELECTED}" != "" ]; then
+    export MODEL="${SELECTED}"
+fi
+
+# submit
 python3 submit.py
 
 popd
