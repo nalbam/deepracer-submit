@@ -136,4 +136,6 @@ if __name__ == '__main__':
 
     colse_browser(browser)
 
-    post_slack('%s : %s' % (profile, model_name))
+    millis = int(round(time.time() * 1000))
+
+    post_slack('%s : %s - %s' % (profile, model_name, millis))
