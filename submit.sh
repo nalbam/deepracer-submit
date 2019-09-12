@@ -54,7 +54,7 @@ if [ "${PROFILE}" == "" ]; then
     echo "load ${PROFILE_URL}"
     _load "${PROFILE_URL}"
 
-    PROFILE="${SELECTED:-$PROFILE}"
+    export PROFILE="${SELECTED:-$PROFILE}"
 fi
 
 echo "PROFILE: ${PROFILE}"
