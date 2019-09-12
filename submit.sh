@@ -51,6 +51,7 @@ _load() {
 
 # PROFILE
 if [ "${PROFILE}" == "" ]; then
+    echo "load ${PROFILE_URL}"
     _load "${PROFILE_URL}"
 
     PROFILE="${SELECTED:-$PROFILE}"
@@ -59,6 +60,7 @@ fi
 echo "PROFILE: ${PROFILE}"
 
 if [ -f config/${PROFILE}.sh ]; then
+    echo "load config/${PROFILE}.sh"
     source config/${PROFILE}.sh
 fi
 
