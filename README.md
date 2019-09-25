@@ -41,3 +41,7 @@ bash submit.sh
 ```bash
 0,12,24,36,48 * * * * /home/pi/deepracer-submit/submit.sh > /tmp/deepracer-submit.log 2>&1
 ```
+
+## slack
+
+![success](./images/success.png)
