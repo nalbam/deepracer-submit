@@ -4,27 +4,17 @@ OS_NAME="$(uname | awk '{print tolower($0)}')"
 
 SHELL_DIR=$(dirname $0)
 
-PROFILE=$1
-
-pushd ${SHELL_DIR}
-
-git pull
-
-mkdir -p build
-mkdir -p config
-
-if [ -f config/deepracer-model.sh ]; then
-    source config/deepracer-model.sh
-fi
+export PROFILE=$1
+export MODEL=$2
 
 _load() {
-    SELECTED=
-
     URL=$1
-
     if [ "${URL}" == "" ]; then
         return
     fi
+    _load "${URL}"
+
+    SELECTED=
 
     TMP=build/temp.txt
 
@@ -49,29 +39,59 @@ _load() {
     fi
 }
 
-# PROFILE
-if [ "${PROFILE}" == "" ]; then
-    echo "load ${PROFILE_URL}"
-    _load "${PROFILE_URL}"
+_load_profile() {
+    # PROFILE
+    if [ -z "${PROFILE}" ]; then
+        if [ "${PROFILE_URL}" != "" ]; then
+            _load "${PROFILE_URL}"
 
-    export PROFILE="${SELECTED:-$PROFILE}"
+            export PROFILE="${SELECTED:-$PROFILE}"
+        fi
+    fi
+
+    echo "PROFILE: ${PROFILE}"
+
+    if [ -z "${PROFILE}" ]; then
+        exit 1
+    fi
+
+    if [ -f config/${PROFILE}.sh ]; then
+        echo "load config/${PROFILE}.sh"
+        source config/${PROFILE}.sh
+    fi
+}
+
+_load_model() {
+    # MODEL
+    if [ -z "${PROFILE}" ]; then
+        if [ "${MODEL_URL}" != "" ]; then
+            _load "${MODEL_URL}"
+
+            export MODEL="${SELECTED:-$MODEL}"
+        fi
+    fi
+
+    echo "MODEL: ${MODEL}"
+
+    if [ -z "${MODEL}" ]; then
+        exit 1
+    fi
+}
+
+pushd ${SHELL_DIR}
+
+git pull
+
+mkdir -p build
+mkdir -p config
+
+if [ -f config/deepracer-model.sh ]; then
+    source config/deepracer-model.sh
 fi
 
-echo "PROFILE: ${PROFILE}"
+_load_profile
 
-if [ -f config/${PROFILE}.sh ]; then
-    echo "load config/${PROFILE}.sh"
-    source config/${PROFILE}.sh
-fi
-
-# MODEL
-_load "${MODEL_URL}"
-
-echo "MODEL: ${SELECTED}"
-
-if [ "${SELECTED}" != "" ]; then
-    export MODEL="${SELECTED}"
-fi
+_load_model
 
 # submit
 python3 submit.py
