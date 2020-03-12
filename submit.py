@@ -59,6 +59,9 @@ def login_aws(browser):
 def submit_model(browser):
     print("submit_model")
 
+    # url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#league/{}/submitModel"
+    # arn:aws:deepracer:us-east-1::leaderboard/virtual-season-2020-03-tt
+
     url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/submitModel".format(
         model_name
     )
