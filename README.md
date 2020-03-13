@@ -44,6 +44,7 @@ export USERNAME="username"
 export PASSWORD="password"
 
 export MODEL="model"
+export SEASON="2020-03-tt"
 ```
 
 ## usage
