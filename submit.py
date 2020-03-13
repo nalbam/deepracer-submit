@@ -75,7 +75,7 @@ def load_model(browser):
     try:
         browser.get(url)
 
-        time.sleep(10)
+        time.sleep(20)
 
         browser.save_screenshot("build/submit-{}.png".format(profile))
 
@@ -95,16 +95,16 @@ def submit_model(browser):
     #     model_name
     # )
 
-    # arn = urllib.parse.quote_plus(
-    #     "arn:aws:deepracer:us-east-1::leaderboard/virtual-season"
-    # )
+    arn = urllib.parse.quote_plus(
+        "arn:aws:deepracer:us-east-1::leaderboard/virtual-season"
+    )
 
-    # url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/leaderboard/{}-{}/submitModel".format(
-    #     model_name, arn, season
-    # )
+    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/leaderboard/{}-{}/submitModel".format(
+        model_name, arn, season
+    )
 
     try:
-        # browser.get(url)
+        browser.get(url)
 
         time.sleep(10)
 
@@ -167,7 +167,7 @@ if __name__ == "__main__":
 
     login_aws(browser)
 
-    load_model(browser)
+    # load_model(browser)
 
     submit_model(browser)
 
