@@ -80,10 +80,10 @@ def load_model(browser):
         browser.find_element_by_class_name("awsui-button-variant-primary").click()
 
         time.sleep(5)
+
+        browser.save_screenshot("build/result-{}.png".format(profile))
     except Exception as ex:
         print("Error", ex)
-
-    browser.save_screenshot("build/submit-{}.png".format(profile))
 
 
 def submit_model(browser):
@@ -111,10 +111,10 @@ def submit_model(browser):
         browser.find_element_by_class_name("awsui-button-variant-primary").click()
 
         time.sleep(5)
+
+        browser.save_screenshot("build/result-{}.png".format(profile))
     except Exception as ex:
         print("Error", ex)
-
-    browser.save_screenshot("build/submit-{}.png".format(profile))
 
 
 def result(browser):
@@ -126,10 +126,10 @@ def result(browser):
         browser.get(url)
 
         time.sleep(15)
+
+        browser.save_screenshot("build/result-{}.png".format(profile))
     except Exception as ex:
         print("Error", ex)
-
-    browser.save_screenshot("build/result-{}.png".format(profile))
 
 
 def post_slack(text):
