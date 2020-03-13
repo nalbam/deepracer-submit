@@ -59,9 +59,6 @@ def login_aws(browser):
 def submit_model(browser):
     print("submit_model", model_name)
 
-    # url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#league/{}/submitModel"
-    # arn:aws:deepracer:us-east-1::leaderboard/virtual-season-2020-03-tt
-
     url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/submitModel".format(
         model_name
     )
@@ -82,19 +79,11 @@ def submit_model(browser):
 def result(browser):
     print("result")
 
-    # url='https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logs-insights:'
-    url = "https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logs-insights:queryDetail=~(end~0~start~-3600~timeType~'RELATIVE~unit~'seconds~editorString~'fields*20*40message*0a*7c*20filter*20*40message*20*3d*7e*20*27SIM_TRACE_LOG*27*20and*20*40message*20*3d*7e*20*270*2cTrue*27*0a*7c*20order*20by*20*40timestamp*20desc*2c*20*40message*20desc~isLiveTail~false~queryId~'479f81d1-dea9-44e5-b204-867c4ca32173~source~(~'*2faws*2fdeepracer*2fleaderboard*2fSimulationJobs))"
+    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#league"
 
     browser.get(url)
 
-    time.sleep(5)
-
-    browser.find_element_by_id("gwt-debug-toggleButton").click()
-    browser.find_element_by_class_name("side-panel-toggle-caret").click()
-
-    browser.find_element_by_class_name("scroll-query-command-button").click()
-
-    time.sleep(5)
+    time.sleep(10)
 
     browser.save_screenshot("build/result-{}.png".format(profile))
 
@@ -110,11 +99,11 @@ def post_slack(text):
         # obj = slack.chat.post_message(slack_channal, text)
         # print(obj.successful, obj.__dict__['body']['channel'], obj.__dict__['body']['ts'])
 
-        file = "{}/build/submit.png".format(os.getcwd())
+        file = "{}/build/submit-{}.png".format(os.getcwd(), profile)
         slack.files.upload(file, channels=[slack_channal], title=text)
 
-        # file = '{}/build/result.png'.format(os.getcwd())
-        # slack.files.upload(file, channels=[slack_channal], title=text)
+        file = "{}/build/result-{}.png".format(os.getcwd(), profile)
+        slack.files.upload(file, channels=[slack_channal], title=text)
 
     except KeyError as ex:
         print("Environment variable %s not set." % str(ex))
@@ -136,7 +125,7 @@ if __name__ == "__main__":
 
     submit_model(browser)
 
-    # result(browser)
+    result(browser)
 
     colse_browser(browser)
 
