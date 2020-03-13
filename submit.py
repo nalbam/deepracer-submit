@@ -89,7 +89,7 @@ def result(browser):
 
     browser.get(url)
 
-    time.sleep(10)
+    time.sleep(15)
 
     browser.save_screenshot("build/result-{}.png".format(profile))
 
