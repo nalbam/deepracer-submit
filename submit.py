@@ -40,7 +40,10 @@ def open_browser():
 
 
 def colse_browser(browser):
-    browser.close()
+    try:
+        browser.close()
+    except Exception as ex:
+        print("Error", ex)
 
 
 def login_aws(browser):
@@ -57,6 +60,8 @@ def login_aws(browser):
 
     time.sleep(10)
 
+    browser.save_screenshot("build/submit-{}.png".format(profile))
+
 
 def load_model(browser):
     print("load_model", model_name)
@@ -70,11 +75,15 @@ def load_model(browser):
 
         time.sleep(10)
 
+        browser.save_screenshot("build/submit-{}.png".format(profile))
+
         browser.find_element_by_class_name("awsui-button-variant-primary").click()
 
         time.sleep(5)
     except Exception as ex:
         print("Error", ex)
+
+    browser.save_screenshot("build/submit-{}.png".format(profile))
 
 
 def submit_model(browser):
@@ -96,6 +105,8 @@ def submit_model(browser):
         # browser.get(url)
 
         time.sleep(10)
+
+        browser.save_screenshot("build/submit-{}.png".format(profile))
 
         browser.find_element_by_class_name("awsui-button-variant-primary").click()
 
