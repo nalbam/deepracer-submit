@@ -55,7 +55,7 @@ def login_aws(browser):
 
     browser.find_element_by_id("signin_button").click()
 
-    time.sleep(5)
+    time.sleep(10)
 
 
 def load_model(browser):
