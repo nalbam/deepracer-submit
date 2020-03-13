@@ -36,7 +36,7 @@ _load() {
     echo "${RND} / ${COUNT}"
 
     if [ ! -z ${RND} ]; then
-        SELECTED=$(sed -n ${RND}p ${TMP})
+        SELECTED=$(sed -n ${RND}p ${TMP} | cut -d' ' -f1)
     fi
 }
 
