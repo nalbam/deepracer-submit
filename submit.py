@@ -68,7 +68,7 @@ def submit_model(browser):
 
     browser.get(url)
 
-    time.sleep(5)
+    time.sleep(10)
 
     browser.save_screenshot("build/submit.png")
 
