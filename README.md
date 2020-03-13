@@ -4,7 +4,8 @@
 
 ```bash
 sudo apt install xvfb
-sudo apt install chromium-browser chromium-codecs-ffmpeg
+sudo apt install chromium-browser
+sudo apt install chromium-codecs-ffmpeg
 sudo apt install chromium-chromedriver
 
 pip3 install pytest
