@@ -73,13 +73,18 @@ def submit_model(browser):
         model_name, arn, season
     )
 
-    browser.get(url)
+    print(url)
 
-    time.sleep(10)
+    try:
+        browser.get(url)
 
-    browser.find_element_by_class_name("awsui-button-variant-primary").click()
+        time.sleep(10)
 
-    time.sleep(5)
+        browser.find_element_by_class_name("awsui-button-variant-primary").click()
+
+        time.sleep(5)
+    except Exception as ex:
+        print("Error", ex)
 
     browser.save_screenshot("build/submit-{}.png".format(profile))
 
@@ -89,9 +94,14 @@ def result(browser):
 
     url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#league"
 
-    browser.get(url)
+    print(url)
 
-    time.sleep(15)
+    try:
+        browser.get(url)
+
+        time.sleep(15)
+    except Exception as ex:
+        print("Error", ex)
 
     browser.save_screenshot("build/result-{}.png".format(profile))
 
