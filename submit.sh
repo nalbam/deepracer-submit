@@ -12,7 +12,8 @@ _load() {
     if [ "${URL}" == "" ]; then
         return
     fi
-    _load "${URL}"
+
+    echo "_load ${URL}"
 
     SELECTED=
 
