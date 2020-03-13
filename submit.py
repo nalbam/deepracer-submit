@@ -70,7 +70,7 @@ def submit_model(browser):
 
     time.sleep(10)
 
-    browser.save_screenshot("build/submit.png")
+    browser.save_screenshot("build/submit-{}.png".format(profile))
 
     browser.find_element_by_class_name("awsui-button-variant-primary").click()
 
@@ -96,7 +96,7 @@ def result(browser):
 
     time.sleep(5)
 
-    browser.save_screenshot("build/result.png")
+    browser.save_screenshot("build/result-{}.png".format(profile))
 
     # post_slack(model_name)
 
