@@ -149,7 +149,7 @@ def post_slack(step):
 
     millis = int(round(time.time() * 1000))
 
-    text = "%s : %s - %s".format(profile, model_name, millis)
+    text = "{} : {} : {} : {}".format(profile, model_name, step, millis)
 
     try:
         slack = Slacker(slack_token)
