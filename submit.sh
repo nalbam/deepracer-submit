@@ -63,7 +63,7 @@ _load_profile() {
 
 _load_model() {
     # MODEL
-    if [ -z "${PROFILE}" ]; then
+    if [ -z "${MODEL}" ]; then
         if [ "${MODEL_URL}" != "" ]; then
             _load "${MODEL_URL}"
 
