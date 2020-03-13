@@ -42,7 +42,7 @@ def colse_browser(browser):
 
 
 def login_aws(browser):
-    print("login_aws")
+    print("login_aws", username)
 
     url = "https://{}.signin.aws.amazon.com/console".format(userno)
 
@@ -57,7 +57,7 @@ def login_aws(browser):
 
 
 def submit_model(browser):
-    print("submit_model")
+    print("submit_model", model_name)
 
     # url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#league/{}/submitModel"
     # arn:aws:deepracer:us-east-1::leaderboard/virtual-season-2020-03-tt
@@ -70,11 +70,11 @@ def submit_model(browser):
 
     time.sleep(5)
 
+    browser.save_screenshot("build/submit.png")
+
     browser.find_element_by_class_name("awsui-button-variant-primary").click()
 
     time.sleep(5)
-
-    browser.save_screenshot("build/submit.png")
 
     # post_slack(model_name)
 
