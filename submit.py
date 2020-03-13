@@ -149,12 +149,12 @@ def post_slack(step):
 
     millis = int(round(time.time() * 1000))
 
+    file = "{}/build/{}-{}.png".format(os.getcwd(), step, profile)
     text = "{} : {} : {} : {}".format(profile, model_name, step, millis)
 
     try:
         slack = Slacker(slack_token)
 
-        file = "{}/build/{}-{}.png".format(os.getcwd(), step, profile)
         slack.files.upload(file, channels=[slack_channal], title=text)
 
     except KeyError as ex:
