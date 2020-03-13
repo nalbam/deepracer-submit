@@ -61,7 +61,7 @@ def login_aws(browser):
 
     browser.find_element_by_id("signin_button").click()
 
-    time.sleep(10)
+    time.sleep(5)
 
     browser.save_screenshot("build/login-{}.png".format(profile))
 
@@ -134,7 +134,7 @@ def result(browser):
     try:
         browser.get(url)
 
-        time.sleep(20)
+        time.sleep(25)
 
         browser.save_screenshot("build/result-{}.png".format(profile))
     except Exception as ex:
