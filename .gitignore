@@ -25,9 +25,9 @@ __pycache__
 .pytest_cache
 
 # maven
-target/
 build/
 config/
+target/
 
 # eclipse
 .settings/

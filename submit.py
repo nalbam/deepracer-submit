@@ -31,8 +31,7 @@ def open_browser():
 
     browser = webdriver.Chrome(options=options)
 
-    # browser = webdriver.Chrome('/usr/local/bin/chromedriver')
-    # browser = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver')
+    # browser = webdriver.Chrome("/usr/local/bin/chromedriver")
 
     browser.set_window_size(1600, 1440)
 
@@ -66,7 +65,7 @@ def login_aws(browser):
 
     browser.save_screenshot("build/login-{}.png".format(profile))
 
-    post_slack("login")
+    # post_slack("login")
 
 
 def load_model(browser):
@@ -91,7 +90,7 @@ def load_model(browser):
     except Exception as ex:
         print("Error", ex)
 
-    post_slack("load")
+    # post_slack("load")
 
 
 def submit_model(browser):
@@ -110,7 +109,7 @@ def submit_model(browser):
     )
 
     try:
-        # browser.get(url)
+        browser.get(url)
 
         time.sleep(10)
 
@@ -175,7 +174,7 @@ if __name__ == "__main__":
 
     login_aws(browser)
 
-    load_model(browser)
+    # load_model(browser)
 
     submit_model(browser)
 
