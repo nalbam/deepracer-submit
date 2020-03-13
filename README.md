@@ -63,4 +63,6 @@ bash submit.sh $PROFILE $MODEL
 
 ## slack
 
-![success](./images/success.png)
+![submit](./images/submit-tt.png)
+
+![result](./images/result-tt.png)
