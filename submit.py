@@ -127,7 +127,7 @@ def result(browser):
     try:
         browser.get(url)
 
-        time.sleep(15)
+        time.sleep(20)
 
         browser.save_screenshot("build/result-{}.png".format(profile))
     except Exception as ex:
