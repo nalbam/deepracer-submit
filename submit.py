@@ -1,5 +1,6 @@
 import os
 import time
+import urllib
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -14,6 +15,7 @@ username = os.environ.get("USERNAME")
 password = os.environ.get("PASSWORD")
 
 model_name = os.environ.get("MODEL", "model-name")
+season = os.environ.get("SEASON", "season")
 
 slack_token = os.environ.get("SLACK_TOKEN", "")
 slack_channal = os.environ.get("SLACK_CHANNAL", "#sandbox")
@@ -32,7 +34,7 @@ def open_browser():
     # browser = webdriver.Chrome('/usr/local/bin/chromedriver')
     # browser = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver')
 
-    browser.set_window_size(1500, 1200)
+    browser.set_window_size(1600, 1440)
 
     return browser
 
@@ -59,8 +61,14 @@ def login_aws(browser):
 def submit_model(browser):
     print("submit_model", model_name)
 
-    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/submitModel".format(
-        model_name
+    # url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/submitModel".format(
+    #     model_name
+    # )
+
+    arn = urllib.quote("arn:aws:deepracer:us-east-1::leaderboard/")
+
+    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/leaderboard/{}virtual-season-{}/submitModel".format(
+        model_name, arn, season
     )
 
     browser.get(url)
