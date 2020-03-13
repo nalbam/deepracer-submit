@@ -69,7 +69,7 @@ def login_aws(browser):
 
 
 def load_model(browser):
-    print("load_model", model_name)
+    print("load_model")
 
     url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}".format(
         model_name
