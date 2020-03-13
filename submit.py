@@ -53,6 +53,8 @@ def login_aws(browser):
 
     browser.get(url)
 
+    time.sleep(10)
+
     browser.find_element_by_id("username").send_keys(username)
     browser.find_element_by_id("password").send_keys(password)
 
