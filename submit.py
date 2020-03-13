@@ -55,6 +55,8 @@ def login_aws(browser):
 
     time.sleep(10)
 
+    browser.save_screenshot("build/login-{}.png".format(profile))
+
     browser.find_element_by_id("username").send_keys(username)
     browser.find_element_by_id("password").send_keys(password)
 
@@ -62,7 +64,9 @@ def login_aws(browser):
 
     time.sleep(10)
 
-    browser.save_screenshot("build/submit-{}.png".format(profile))
+    browser.save_screenshot("build/login-{}.png".format(profile))
+
+    post_slack("login")
 
 
 def load_model(browser):
@@ -77,15 +81,17 @@ def load_model(browser):
 
         time.sleep(20)
 
-        browser.save_screenshot("build/submit-{}.png".format(profile))
+        browser.save_screenshot("build/load-{}.png".format(profile))
 
         browser.find_element_by_class_name("awsui-button-variant-primary").click()
 
         time.sleep(5)
 
-        browser.save_screenshot("build/result-{}.png".format(profile))
+        browser.save_screenshot("build/load-{}.png".format(profile))
     except Exception as ex:
         print("Error", ex)
+
+    post_slack("load")
 
 
 def submit_model(browser):
@@ -104,7 +110,7 @@ def submit_model(browser):
     )
 
     try:
-        browser.get(url)
+        # browser.get(url)
 
         time.sleep(10)
 
@@ -114,9 +120,11 @@ def submit_model(browser):
 
         time.sleep(5)
 
-        browser.save_screenshot("build/result-{}.png".format(profile))
+        browser.save_screenshot("build/submit-{}.png".format(profile))
     except Exception as ex:
         print("Error", ex)
+
+    post_slack("submit")
 
 
 def result(browser):
@@ -133,20 +141,20 @@ def result(browser):
     except Exception as ex:
         print("Error", ex)
 
+    post_slack("result")
 
-def post_slack(text):
+
+def post_slack(step):
     print("post_slack")
+
+    millis = int(round(time.time() * 1000))
+
+    text = "%s : %s - %s".format(profile, model_name, millis)
 
     try:
         slack = Slacker(slack_token)
 
-        # obj = slack.chat.post_message(slack_channal, text)
-        # print(obj.successful, obj.__dict__['body']['channel'], obj.__dict__['body']['ts'])
-
-        file = "{}/build/submit-{}.png".format(os.getcwd(), profile)
-        slack.files.upload(file, channels=[slack_channal], title=text)
-
-        file = "{}/build/result-{}.png".format(os.getcwd(), profile)
+        file = "{}/build/{}-{}.png".format(os.getcwd(), step, profile)
         slack.files.upload(file, channels=[slack_channal], title=text)
 
     except KeyError as ex:
@@ -167,14 +175,10 @@ if __name__ == "__main__":
 
     login_aws(browser)
 
-    # load_model(browser)
+    load_model(browser)
 
     submit_model(browser)
 
     result(browser)
 
     colse_browser(browser)
-
-    millis = int(round(time.time() * 1000))
-
-    post_slack("%s : %s - %s" % (profile, model_name, millis))
