@@ -33,7 +33,7 @@ def open_browser():
 
     # browser = webdriver.Chrome("/usr/local/bin/chromedriver")
 
-    browser.set_window_size(1600, 1440)
+    browser.set_window_size(1600, 1200)
 
     return browser
 
