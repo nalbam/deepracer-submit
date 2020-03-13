@@ -58,6 +58,25 @@ def login_aws(browser):
     time.sleep(5)
 
 
+def load_model(browser):
+    print("load_model", model_name)
+
+    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}".format(
+        model_name
+    )
+
+    try:
+        browser.get(url)
+
+        time.sleep(10)
+
+        browser.find_element_by_class_name("awsui-button-variant-primary").click()
+
+        time.sleep(5)
+    except Exception as ex:
+        print("Error", ex)
+
+
 def submit_model(browser):
     print("submit_model", model_name)
 
@@ -65,18 +84,16 @@ def submit_model(browser):
     #     model_name
     # )
 
-    arn = urllib.parse.quote_plus(
-        "arn:aws:deepracer:us-east-1::leaderboard/virtual-season"
-    )
+    # arn = urllib.parse.quote_plus(
+    #     "arn:aws:deepracer:us-east-1::leaderboard/virtual-season"
+    # )
 
-    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/leaderboard/{}-{}/submitModel".format(
-        model_name, arn, season
-    )
-
-    print(url)
+    # url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/leaderboard/{}-{}/submitModel".format(
+    #     model_name, arn, season
+    # )
 
     try:
-        browser.get(url)
+        # browser.get(url)
 
         time.sleep(10)
 
@@ -93,8 +110,6 @@ def result(browser):
     print("result")
 
     url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#league"
-
-    print(url)
 
     try:
         browser.get(url)
@@ -138,6 +153,8 @@ if __name__ == "__main__":
     browser = open_browser()
 
     login_aws(browser)
+
+    load_model(browser)
 
     submit_model(browser)
 
