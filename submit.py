@@ -65,9 +65,9 @@ def submit_model(browser):
     #     model_name
     # )
 
-    arn = urllib.quote("arn:aws:deepracer:us-east-1::leaderboard/")
+    arn = urllib.quote_plus("arn:aws:deepracer:us-east-1::leaderboard/virtual-season")
 
-    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/leaderboard/{}virtual-season-{}/submitModel".format(
+    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/leaderboard/{}-{}/submitModel".format(
         model_name, arn, season
     )
 
