@@ -3,6 +3,7 @@
 ## install
 
 ```bash
+sudo apt update
 sudo apt install -y xvfb
 sudo apt install -y chromium-browser
 sudo apt install -y chromium-codecs-ffmpeg
