@@ -17,35 +17,34 @@ pip3 install slacker
 
 ## config
 
-#### single profile
+### single league
 
 ```bash
-# config/deepracer-model.sh
-export PROFILE_URL=""
-export MODEL_URL=""
-
+# config/deepracer.sh
 export USERNO="123456789012"
-
 export USERNAME="username"
 export PASSWORD="password"
 
-export MODEL="model"
+export LEAGUE="tt"
 export SEASON="2020-03-tt"
+export MODEL="model"
 
 export SLACK_TOKEN="xoxb-1111-2222-xxxx"
 ```
 
-#### multi profile
+### multi league
 
 ```bash
-# config/$PROFILE.sh
+# config/$LEAGUE.sh
 export USERNO="123456789012"
-
 export USERNAME="username"
 export PASSWORD="password"
 
-export MODEL="model"
+export LEAGUE="tt"
 export SEASON="2020-03-tt"
+export MODEL_URL=""
+
+export SLACK_TOKEN="xoxb-1111-2222-xxxx"
 ```
 
 ## usage
@@ -53,13 +52,13 @@ export SEASON="2020-03-tt"
 ```bash
 bash submit.sh
 # or
-bash submit.sh $PROFILE $MODEL
+bash submit.sh $LEAGUE
 ```
 
 ## crontab
 
 ```bash
-0,12,24,36,48 * * * * /home/pi/deepracer-submit/submit.sh > /tmp/deepracer-submit.log 2>&1
+0,15,30,45 * * * * /home/pi/deepracer-submit/submit.sh tt > /tmp/submit-tt.log 2>&1
 ```
 
 ## slack

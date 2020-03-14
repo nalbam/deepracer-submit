@@ -4,24 +4,49 @@ OS_NAME="$(uname | awk '{print tolower($0)}')"
 
 SHELL_DIR=$(dirname $0)
 
-export PROFILE=$1
-export MODEL=$2
+export LEAGUE=$1
+export SEASON=$2
+export MODEL=$3
 
-_load() {
-    URL=$1
-    if [ "${URL}" == "" ]; then
-        return
+_echo() {
+    if [ "${TPUT}" != "" ] && [ "$2" != "" ]; then
+        echo -e "$(tput setaf $2)$1$(tput sgr0)"
+    else
+        echo -e "$1"
     fi
+}
 
-    echo "_load ${URL}"
+_result() {
+    _echo "# $@" 4
+}
+
+_command() {
+    _echo "$ $@" 3
+}
+
+_success() {
+    _echo "+ $@" 2
+    exit 0
+}
+
+_error() {
+    _echo "- $@" 1
+    exit 0
+}
+
+_init() {
+    mkdir -p build
+    mkdir -p config
+
+    if [ -f config/deepracer.sh ]; then
+        source config/deepracer.sh
+    fi
+}
+
+_select_one() {
+    COUNT=$(cat ${LIST} | wc -l | xargs)
 
     SELECTED=
-
-    TMP=build/temp.txt
-
-    curl -sL ${URL} > ${TMP}
-
-    COUNT=$(cat ${TMP} | wc -l | xargs)
 
     if [ "${COUNT}" -gt 1 ]; then
         if [ "${OS_NAME}" == "darwin" ]; then
@@ -36,65 +61,74 @@ _load() {
     echo "${RND} / ${COUNT}"
 
     if [ ! -z ${RND} ]; then
-        SELECTED=$(sed -n ${RND}p ${TMP} | cut -d' ' -f1)
+        SELECTED=$(sed -n ${RND}p ${LIST} | cut -d' ' -f1)
     fi
 }
 
-_load_profile() {
-    # PROFILE
-    if [ -z "${PROFILE}" ]; then
-        if [ "${PROFILE_URL}" != "" ]; then
-            _load "${PROFILE_URL}"
+_load_season() {
+    echo "LEAGUE: ${LEAGUE}"
 
-            export PROFILE="${SELECTED:-$PROFILE}"
-        fi
+    if [ -z "${LEAGUE}" ]; then
+        _error "Not set LEAGUE"
     fi
 
-    echo "PROFILE: ${PROFILE}"
-
-    if [ -z "${PROFILE}" ]; then
-        exit 1
+    if [ -f config/${LEAGUE}.sh ]; then
+        echo "load config/${LEAGUE}.sh"
+        source config/${LEAGUE}.sh
     fi
 
-    if [ -f config/${PROFILE}.sh ]; then
-        echo "load config/${PROFILE}.sh"
-        source config/${PROFILE}.sh
+    if [ -z "${SEASON}" ]; then
+        LIST=build/season.txt
+
+        curl -sL ${LEAGUE_URL} \
+            | jq -r --arg LEAGUE "${LEAGUE}" '.[] | select(.league==$LEAGUE) | "\(.season)"' \
+            > ${LIST}
+
+        _select_one
+
+        export SEASON="${SELECTED}"
+    fi
+
+    echo "SEASON: ${SEASON}"
+
+    if [ -z "${SEASON}" ]; then
+        _error "Not set SEASON"
     fi
 }
 
-_load_model() {
-    # MODEL
+_load_models() {
     if [ -z "${MODEL}" ]; then
-        if [ "${MODEL_URL}" != "" ]; then
-            _load "${MODEL_URL}"
+        LIST=build/models.txt
 
-            export MODEL="${SELECTED:-$MODEL}"
-        fi
+        curl -sL ${LEAGUE_URL} \
+            | jq -r --arg LEAGUE "${LEAGUE}" '.[] | select(.league==$LEAGUE) | "\(.models[].name)"' \
+            > ${LIST}
+
+        _select_one
+
+        export MODEL="${SELECTED}"
     fi
 
     echo "MODEL: ${MODEL}"
 
     if [ -z "${MODEL}" ]; then
-        exit 1
+        _error "Not set MODEL"
     fi
 }
 
-pushd ${SHELL_DIR}
+_run() {
+    pushd ${SHELL_DIR}
 
-git pull
+    _init
 
-mkdir -p build
-mkdir -p config
+    _load_season
 
-if [ -f config/deepracer-model.sh ]; then
-    source config/deepracer-model.sh
-fi
+    _load_models
 
-_load_profile
+    # submit
+    python3 submit.py -l ${LEAGUE} -s ${SEASON} -m ${MODEL}
 
-_load_model
+    popd
+}
 
-# submit
-python3 submit.py
-
-popd
+_run
