@@ -3,10 +3,10 @@
 ## install
 
 ```bash
-sudo apt install xvfb
-sudo apt install chromium-browser
-sudo apt install chromium-codecs-ffmpeg
-sudo apt install chromium-chromedriver
+sudo apt install -y xvfb
+sudo apt install -y chromium-browser
+sudo apt install -y chromium-codecs-ffmpeg
+sudo apt install -y chromium-chromedriver
 
 pip3 install pytest
 pip3 install selenium
