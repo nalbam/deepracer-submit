@@ -40,9 +40,7 @@ export USERNO="123456789012"
 export USERNAME="username"
 export PASSWORD="password"
 
-export LEAGUE="tt"
-export SEASON="2020-03-tt"
-export MODEL_URL=""
+export LEAGUE_URL=""
 
 export SLACK_TOKEN="xoxb-1111-2222-xxxx"
 ```
