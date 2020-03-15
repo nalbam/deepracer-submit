@@ -98,7 +98,7 @@ def load_model(args, browser):
 
         browser.find_element_by_class_name("awsui-button-variant-primary").click()
 
-        time.sleep(5)
+        time.sleep(10)
 
         browser.save_screenshot("build/load-{}.png".format(args.league))
     except Exception as ex:
