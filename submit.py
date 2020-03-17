@@ -129,11 +129,24 @@ def submit_model(args, browser):
 
         browser.save_screenshot("build/submit-{}.png".format(args.league))
 
-        element = browser.find_element_by_class_name("awsui-select-trigger-label")
+        browser.find_element_by_class_name("awsui-dropdown-trigger").click()
 
-        browser.execute_script(
-            'arguments[0].innerHTML = "{}";'.format(args.model), element
-        )
+        for data in browser.find_elements_by_xpath(
+            "//*[contains(@data-value)]/@data-value"
+        ):
+            print(data.text)
+
+            arn = "arn:aws:deepracer:us-east-1:{}:model/reinforcement_learning/{}".format(
+                args.userno, args.model
+            )
+
+            if data == arn:
+                data.click()
+
+        # element = browser.find_element_by_class_name("awsui-select-trigger-label")
+        # browser.execute_script(
+        #     'arguments[0].innerHTML = "{}";'.format(args.model), element
+        # )
 
         browser.find_element_by_class_name("awsui-button-variant-primary").click()
 
