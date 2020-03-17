@@ -114,8 +114,12 @@ def submit_model(args, browser):
         "arn:aws:deepracer:us-east-1::leaderboard/virtual-season"
     )
 
-    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/leaderboard/{}-{}/submitModel".format(
-        args.model, arn, args.season
+    # url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/leaderboard/{}-{}/submitModel".format(
+    #     args.model, arn, args.season
+    # )
+
+    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#league/{}-{}/submitModel".format(
+        arn, args.season
     )
 
     try:
@@ -124,6 +128,12 @@ def submit_model(args, browser):
         time.sleep(10)
 
         browser.save_screenshot("build/submit-{}.png".format(args.league))
+
+        element = browser.find_element_by_class_name("awsui-select-trigger-label")
+
+        browser.execute_script(
+            'arguments[0].innerHTML = "{}";'.format(args.model), element
+        )
 
         browser.find_element_by_class_name("awsui-button-variant-primary").click()
 
