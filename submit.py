@@ -131,24 +131,28 @@ def submit_model(args, browser):
 
         browser.find_element_by_class_name("awsui-dropdown-trigger").click()
 
-        browser.find_element_by_id("awsui-select-0-dropdown-option-0").click()
+        # browser.find_element_by_id("awsui-select-0-dropdown-option-0").click()
 
-        # for data in browser.find_elements_by_xpath(
+        path = '//*[@title="{}"]'.format(args.model)
+        browser.find_element_by_xpath(path).click()
+
+        # for element in browser.find_elements_by_xpath(
         #     "//*[contains(@data-value)]/@data-value"
         # ):
-        #     print(data.text)
+        #     print(element.text)
 
         #     arn = "arn:aws:deepracer:us-east-1:{}:model/reinforcement_learning/{}".format(
         #         args.userno, args.model
         #     )
 
-        #     if data == arn:
-        #         data.click()
+        #     if element.text == arn:
+        #         element.click()
+        #         break
 
-        element = browser.find_element_by_class_name("awsui-select-trigger-label")
-        browser.execute_script(
-            'arguments[0].innerHTML = "{}";'.format(args.model), element
-        )
+        # element = browser.find_element_by_class_name("awsui-select-trigger-label")
+        # browser.execute_script(
+        #     'arguments[0].innerHTML = "{}";'.format(args.model), element
+        # )
 
         browser.find_element_by_class_name("awsui-button-variant-primary").click()
 
