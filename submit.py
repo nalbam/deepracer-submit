@@ -125,7 +125,7 @@ def submit_model(args, browser):
     try:
         browser.get(url)
 
-        time.sleep(10)
+        time.sleep(20)
 
         browser.save_screenshot("build/submit-{}.png".format(args.league))
 
