@@ -110,13 +110,13 @@ def load_model(args, browser):
 def submit_model(args, browser):
     print("submit_model", args.model)
 
-    arn = urllib.parse.quote_plus("arn:aws:deepracer:us-east-1::leaderboard")
+    arn = urllib.parse.quote_plus("arn:aws:deepracer:us-east-1::leaderboard/")
 
     # url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/leaderboard/{}/{}/submitModel".format(
     #     args.model, arn, args.season
     # )
 
-    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#league/{}/{}/submitModel".format(
+    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#league/{}{}/submitModel".format(
         arn, args.season
     )
 
