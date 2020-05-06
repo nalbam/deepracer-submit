@@ -170,7 +170,9 @@ def submit_model(args, browser):
 def result(args, browser):
     print("result")
 
-    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#league"
+    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#{}".format(
+        args.target
+    )
 
     try:
         browser.get(url)
