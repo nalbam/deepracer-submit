@@ -62,14 +62,14 @@ _select_one() {
     echo "${RND} / ${COUNT}"
 
     if [ ! -z ${RND} ]; then
-        SELECTED=$(sed -n ${RND}p ${LIST} | cut -d' ' -f1)
+        SELECTED=$(sed -n ${RND}p ${LIST})
     fi
 }
 
 _load_season() {
     echo "TARGET: ${TARGET}"
 
-    if [ -z "${TARGET}" ]; then
+    if [ -z ${TARGET} ]; then
         _error "Not set TARGET"
     fi
 
@@ -78,7 +78,7 @@ _load_season() {
         source config/${TARGET}.sh
     fi
 
-    if [ -z "${SEASON}" ]; then
+    if [ -z ${SEASON} ]; then
         LIST=build/season.txt
 
         curl -sL ${TARGET_URL} \
@@ -93,15 +93,16 @@ _load_season() {
         export SEASON="${ARR[1]}"
     fi
 
+    echo "LEAGUE: ${LEAGUE}"
     echo "SEASON: ${SEASON}"
 
-    if [ -z "${SEASON}" ]; then
+    if [ -z ${SEASON} ]; then
         _error "Not set SEASON"
     fi
 }
 
 _load_models() {
-    if [ -z "${MODEL}" ]; then
+    if [ -z ${MODEL} ]; then
         LIST=build/models.txt
 
         curl -sL ${TARGET_URL} \
@@ -115,7 +116,7 @@ _load_models() {
 
     echo "MODEL: ${MODEL}"
 
-    if [ -z "${MODEL}" ]; then
+    if [ -z ${MODEL} ]; then
         _error "Not set MODEL"
     fi
 }
