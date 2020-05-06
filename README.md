@@ -25,8 +25,8 @@ export USERNO="123456789012"
 export USERNAME="username"
 export PASSWORD="password"
 
-export LEAGUE="tt" # [tt, oa, h2h, s-tt, s-oa]
-export TARGET="league" # [league, summitLeague]
+export TARGET="tt" # [tt, oa, h2h, s-tt, s-oa]
+export LEAGUE="league" # [league, summitLeague]
 export SEASON="virtual-season-2020-03-tt"
 export MODEL="model-name"
 
@@ -41,7 +41,7 @@ export USERNO="123456789012"
 export USERNAME="username"
 export PASSWORD="password"
 
-export LEAGUE_URL=""
+export TARGET_URL="https://deepracer-league.com/submit.json"
 
 export SLACK_TOKEN="xoxb-1111-2222-xxxx"
 ```

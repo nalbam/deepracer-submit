@@ -14,8 +14,8 @@ USERNO = os.environ.get("USERNO")
 USERNAME = os.environ.get("USERNAME")
 PASSWORD = os.environ.get("PASSWORD")
 
-LEAGUE = os.environ.get("LEAGUE", "tt")
-TARGET = os.environ.get("TARGET", "league")
+TARGET = os.environ.get("TARGET", "tt")
+LEAGUE = os.environ.get("LEAGUE", "league")
 SEASON = os.environ.get("SEASON", "season")
 MODEL = os.environ.get("MODEL", "model")
 
@@ -28,8 +28,8 @@ def parse_args():
     p.add_argument("--userno", default=USERNO, help="userno")
     p.add_argument("--username", default=USERNAME, help="username")
     p.add_argument("--password", default=PASSWORD, help="password")
+    p.add_argument("-t", "--target", default=TARGET, help="target")
     p.add_argument("-l", "--league", default=LEAGUE, help="league")
-    p.add_argument("-l", "--target", default=TARGET, help="target")
     p.add_argument("-s", "--season", default=SEASON, help="season")
     p.add_argument("-m", "--model", default=MODEL, help="model")
     p.add_argument("--slack-token", default=SLACK_TOKEN, help="slack token")
@@ -70,7 +70,7 @@ def login_aws(args, browser):
 
     time.sleep(5)
 
-    browser.save_screenshot("build/login-{}.png".format(args.league))
+    browser.save_screenshot("build/login-{}.png".format(args.target))
 
     browser.find_element_by_id("username").send_keys(args.username)
     browser.find_element_by_id("password").send_keys(args.password)
@@ -79,7 +79,7 @@ def login_aws(args, browser):
 
     time.sleep(5)
 
-    browser.save_screenshot("build/login-{}.png".format(args.league))
+    browser.save_screenshot("build/login-{}.png".format(args.target))
 
     # post_slack(args,"login")
 
@@ -96,13 +96,13 @@ def load_model(args, browser):
 
         time.sleep(10)
 
-        browser.save_screenshot("build/load-{}.png".format(args.league))
+        browser.save_screenshot("build/load-{}.png".format(args.target))
 
         browser.find_element_by_class_name("awsui-button-variant-primary").click()
 
         time.sleep(10)
 
-        browser.save_screenshot("build/load-{}.png".format(args.league))
+        browser.save_screenshot("build/load-{}.png".format(args.target))
     except Exception as ex:
         print("Error", ex)
 
@@ -121,7 +121,7 @@ def submit_model(args, browser):
     # )
 
     url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#{}/{}{}/submitModel".format(
-        args.target, arn, args.season
+        args.league, arn, args.season
     )
 
     try:
@@ -129,7 +129,7 @@ def submit_model(args, browser):
 
         time.sleep(20)
 
-        browser.save_screenshot("build/submit-{}.png".format(args.league))
+        browser.save_screenshot("build/submit-{}.png".format(args.target))
 
         browser.find_element_by_class_name("awsui-dropdown-trigger").click()
 
@@ -160,7 +160,7 @@ def submit_model(args, browser):
 
         time.sleep(10)
 
-        browser.save_screenshot("build/submit-{}.png".format(args.league))
+        browser.save_screenshot("build/submit-{}.png".format(args.target))
     except Exception as ex:
         print("Error", ex)
 
@@ -171,7 +171,7 @@ def result(args, browser):
     print("result")
 
     url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#{}".format(
-        args.target
+        args.league
     )
 
     try:
@@ -179,7 +179,7 @@ def result(args, browser):
 
         time.sleep(25)
 
-        browser.save_screenshot("build/result-{}.png".format(args.league))
+        browser.save_screenshot("build/result-{}.png".format(args.target))
     except Exception as ex:
         print("Error", ex)
 
@@ -191,8 +191,8 @@ def post_slack(args, step):
 
     millis = int(round(time.time() * 1000))
 
-    file = "{}/build/{}-{}.png".format(os.getcwd(), step, args.league)
-    text = "{} : {} : {} : {}".format(args.league, args.model, step, millis)
+    file = "{}/build/{}-{}.png".format(os.getcwd(), step, args.target)
+    text = "{} : {} : {} : {}".format(args.target, args.model, step, millis)
 
     try:
         slack = Slacker(args.slack_token)

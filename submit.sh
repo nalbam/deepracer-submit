@@ -4,8 +4,8 @@ OS_NAME="$(uname | awk '{print tolower($0)}')"
 
 SHELL_DIR=$(dirname $0)
 
-export LEAGUE=$1
-export TARGET=$2
+export TARGET=$1
+export LEAGUE=$2
 export SEASON=$3
 export MODEL=$4
 
@@ -67,29 +67,29 @@ _select_one() {
 }
 
 _load_season() {
-    echo "LEAGUE: ${LEAGUE}"
+    echo "TARGET: ${TARGET}"
 
-    if [ -z "${LEAGUE}" ]; then
-        _error "Not set LEAGUE"
+    if [ -z "${TARGET}" ]; then
+        _error "Not set TARGET"
     fi
 
-    if [ -f config/${LEAGUE}.sh ]; then
-        echo "load config/${LEAGUE}.sh"
-        source config/${LEAGUE}.sh
+    if [ -f config/${TARGET}.sh ]; then
+        echo "load config/${TARGET}.sh"
+        source config/${TARGET}.sh
     fi
 
     if [ -z "${SEASON}" ]; then
         LIST=build/season.txt
 
-        curl -sL ${LEAGUE_URL} \
-            | jq -r --arg LEAGUE "${LEAGUE}" '.[] | select(.league==$LEAGUE) | "\(.target) \(.season)"' \
+        curl -sL ${TARGET_URL} \
+            | jq -r --arg TARGET "${TARGET}" '.[] | select(.target==$TARGET) | "\(.league) \(.season)"' \
             > ${LIST}
 
         _select_one
 
         ARR=(${SELECTED})
 
-        export TARGET="${ARR[0]}"
+        export LEAGUE="${ARR[0]}"
         export SEASON="${ARR[1]}"
     fi
 
@@ -104,8 +104,8 @@ _load_models() {
     if [ -z "${MODEL}" ]; then
         LIST=build/models.txt
 
-        curl -sL ${LEAGUE_URL} \
-            | jq -r --arg LEAGUE "${LEAGUE}" '.[] | select(.league==$LEAGUE) | "\(.models[].name)"' \
+        curl -sL ${TARGET_URL} \
+            | jq -r --arg TARGET "${TARGET}" '.[] | select(.target==$TARGET) | "\(.models[].name)"' \
             > ${LIST}
 
         _select_one
@@ -130,7 +130,7 @@ _run() {
     _load_models
 
     # submit
-    python3 submit.py -l ${LEAGUE} -s ${SEASON} -m ${MODEL}
+    python3 submit.py -t ${TARGET} -l ${LEAGUE} -s ${SEASON} -m ${MODEL}
 
     popd
 }

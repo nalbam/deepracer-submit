@@ -1,22 +1,22 @@
 [{
-    "league": "tt",
-    "target": "league",
+    "target": "tt",
+    "league": "league",
     "season": "virtual-season-2020-03-tt",
     "models": [{
       "name": "tt-00"
     }]
   },
   {
-    "league": "oa",
-    "target": "league",
+    "target": "oa",
+    "league": "league",
     "season": "virtual-season-2020-03-oa",
     "models": [{
       "name": "oa-00"
     }]
   },
   {
-    "league": "h2h",
-    "target": "league",
+    "target": "h2h",
+    "league": "league",
     "season": "virtual-season-2020-03-h2h",
     "models": [{
       "name": "h2h-01"
