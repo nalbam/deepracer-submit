@@ -5,8 +5,9 @@ OS_NAME="$(uname | awk '{print tolower($0)}')"
 SHELL_DIR=$(dirname $0)
 
 export LEAGUE=$1
-export SEASON=$2
-export MODEL=$3
+export TARGET=$2
+export SEASON=$3
+export MODEL=$4
 
 _echo() {
     if [ "${TPUT}" != "" ] && [ "$2" != "" ]; then
@@ -81,12 +82,15 @@ _load_season() {
         LIST=build/season.txt
 
         curl -sL ${LEAGUE_URL} \
-            | jq -r --arg LEAGUE "${LEAGUE}" '.[] | select(.league==$LEAGUE) | "\(.season)"' \
+            | jq -r --arg LEAGUE "${LEAGUE}" '.[] | select(.league==$LEAGUE) | "\(.target) \(.season)"' \
             > ${LIST}
 
         _select_one
 
-        export SEASON="${SELECTED}"
+        ARR=(${SELECTED})
+
+        export TARGET="${ARR[0]}"
+        export SEASON="${ARR[1]}"
     fi
 
     echo "SEASON: ${SEASON}"

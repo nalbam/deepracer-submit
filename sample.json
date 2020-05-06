@@ -1,5 +1,6 @@
 [{
     "league": "tt",
+    "target": "league",
     "season": "virtual-season-2020-03-tt",
     "models": [{
       "name": "tt-00"
@@ -7,6 +8,7 @@
   },
   {
     "league": "oa",
+    "target": "league",
     "season": "virtual-season-2020-03-oa",
     "models": [{
       "name": "oa-00"
@@ -14,6 +16,7 @@
   },
   {
     "league": "h2h",
+    "target": "league",
     "season": "virtual-season-2020-03-h2h",
     "models": [{
       "name": "h2h-01"

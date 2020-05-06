@@ -15,6 +15,7 @@ USERNAME = os.environ.get("USERNAME")
 PASSWORD = os.environ.get("PASSWORD")
 
 LEAGUE = os.environ.get("LEAGUE", "tt")
+TARGET = os.environ.get("TARGET", "league")
 SEASON = os.environ.get("SEASON", "season")
 MODEL = os.environ.get("MODEL", "model")
 
@@ -28,6 +29,7 @@ def parse_args():
     p.add_argument("--username", default=USERNAME, help="username")
     p.add_argument("--password", default=PASSWORD, help="password")
     p.add_argument("-l", "--league", default=LEAGUE, help="league")
+    p.add_argument("-l", "--target", default=TARGET, help="target")
     p.add_argument("-s", "--season", default=SEASON, help="season")
     p.add_argument("-m", "--model", default=MODEL, help="model")
     p.add_argument("--slack-token", default=SLACK_TOKEN, help="slack token")
@@ -118,8 +120,8 @@ def submit_model(args, browser):
     #     args.model, arn, args.season
     # )
 
-    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#league/{}{}/submitModel".format(
-        arn, args.season
+    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#{}/{}{}/submitModel".format(
+        args.target, arn, args.season
     )
 
     try:
