@@ -26,7 +26,7 @@ export USERNAME="username"
 export PASSWORD="password"
 
 export LEAGUE="tt"
-export SEASON="2020-03-tt"
+export SEASON="virtual-season-2020-03-tt"
 export MODEL="model"
 
 export SLACK_TOKEN="xoxb-1111-2222-xxxx"
