@@ -82,15 +82,19 @@ _load_season() {
         LIST=build/season.txt
 
         curl -sL ${TARGET_URL} \
-            | jq -r --arg TARGET "${TARGET}" '.[] | select(.target==$TARGET) | "\(.league) \(.season)"' \
+            | jq -r --arg TARGET "${TARGET}" '.[] | select(.target==$TARGET) | "\(.enable) \(.league) \(.season)"' \
             > ${LIST}
 
         _select_one
 
         ARR=(${SELECTED})
 
-        export LEAGUE="${ARR[0]}"
-        export SEASON="${ARR[1]}"
+        if [ "${ARR[0]}" == "false" ]; then
+            _error "Not enabled"
+        fi
+
+        export LEAGUE="${ARR[1]}"
+        export SEASON="${ARR[2]}"
     fi
 
     echo "LEAGUE: ${LEAGUE}"
