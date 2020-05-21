@@ -31,6 +31,7 @@ export SEASON="virtual-season-2020-03-tt"
 export MODEL="model-name"
 
 export SLACK_TOKEN="xoxb-1111-2222-xxxx"
+export SLACK_CHANNAL="#sandbox"
 ```
 
 ### multi league
