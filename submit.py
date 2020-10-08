@@ -114,7 +114,11 @@ def submit_model(args, browser):
 
     # #league/arn%3Aaws%3Adeepracer%3Aus-east-1%3A%3Aleaderboard%2Fvirtual-season-2020-05-tt/submitModel
 
-    arn = urllib.parse.quote_plus("arn:aws:deepracer:us-east-1::leaderboard/")
+    # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F55234c74-2c48-466d-9e66-242ddf05e04d/submitModel
+    # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2Fd542d266-ce95-4875-8bdb-670421c9394f/submitModel
+    # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F831218e6-ff91-4b11-b734-a2509d9b37fe/submitModel
+
+    arn = urllib.parse.quote_plus("arn:aws:deepracer:::leaderboard/")
 
     # url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/leaderboard/{}/{}/submitModel".format(
     #     args.model, arn, args.season
