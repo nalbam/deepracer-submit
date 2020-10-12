@@ -13,6 +13,16 @@ provider "aws" {
   region = var.region
 }
 
+locals {
+  envs = {
+    USERNO   = var.USERNO
+    USERNAME = var.USERNAME
+    PASSWORD = var.PASSWORD
+    LEAGUE   = var.LEAGUE
+    MODEL    = var.MODEL
+  }
+}
+
 module "submit" {
   source = "terraform-aws-modules/lambda/aws"
 
@@ -28,4 +38,6 @@ module "submit" {
   memory_size = 2048
 
   source_path = "${path.module}/src"
+
+  environment_variables = local.envs
 }
