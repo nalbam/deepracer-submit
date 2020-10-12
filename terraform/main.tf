@@ -35,7 +35,7 @@ module "selenium" {
 
   create_layer = true
 
-  layer_name = "Lambda_Layer_for_selenium_python36"
+  layer_name = "selenium"
 
   compatible_runtimes = ["python3.6"]
 
