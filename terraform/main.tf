@@ -22,22 +22,10 @@ module "submit" {
   handler = "submit.handler"
 
   layers = [
-    module.selenium.this_lambda_layer_arn,
+    aws_lambda_layer_version.selenium.arn,
   ]
 
   memory_size = 2048
 
   source_path = "${path.module}/src"
-}
-
-module "selenium" {
-  source = "terraform-aws-modules/lambda/aws"
-
-  create_layer = true
-
-  layer_name = "selenium"
-
-  compatible_runtimes = ["python3.6"]
-
-  source_path = "${path.module}/layer"
 }
