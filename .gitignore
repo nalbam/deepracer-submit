@@ -24,8 +24,16 @@ $RECYCLE.BIN/
 __pycache__
 .pytest_cache
 
+# Terraform
+.terraform/
+.terraform.tfstate.lock.info
+terraform.tfstate.backup
+terraform.tfstate
+terraform.tfplan
+
 # maven
 build/
+builds/
 config/
 target/
 
