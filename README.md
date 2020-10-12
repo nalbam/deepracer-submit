@@ -25,8 +25,9 @@ export USERNO="123456789012"
 export USERNAME="username"
 export PASSWORD="password"
 
+export ARN="arn:aws:deepracer:::leaderboard/"
 export TARGET="tt" # [tt, oa, h2h, s-tt, s-oa]
-export LEAGUE="league" # [league, summitLeague]
+export LEAGUE="league" # [league, summitLeague, competition]
 export SEASON="virtual-season-2020-03-tt"
 export MODEL="model-name"
 
@@ -53,7 +54,7 @@ export SLACK_CHANNAL="#sandbox"
 ```bash
 bash submit.sh
 # or
-bash submit.sh $LEAGUE
+bash submit.sh $TARGET
 ```
 
 ## crontab

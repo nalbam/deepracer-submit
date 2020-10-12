@@ -14,6 +14,7 @@ USERNO = os.environ.get("USERNO")
 USERNAME = os.environ.get("USERNAME")
 PASSWORD = os.environ.get("PASSWORD")
 
+ARN = os.environ.get("ARN", "arn")
 TARGET = os.environ.get("TARGET", "tt")
 LEAGUE = os.environ.get("LEAGUE", "league")
 SEASON = os.environ.get("SEASON", "season")
@@ -28,6 +29,7 @@ def parse_args():
     p.add_argument("--userno", default=USERNO, help="userno")
     p.add_argument("--username", default=USERNAME, help="username")
     p.add_argument("--password", default=PASSWORD, help="password")
+    p.add_argument("-a", "--arn", default=ARN, help="arn")
     p.add_argument("-t", "--target", default=TARGET, help="target")
     p.add_argument("-l", "--league", default=LEAGUE, help="league")
     p.add_argument("-s", "--season", default=SEASON, help="season")
@@ -118,7 +120,9 @@ def submit_model(args, browser):
     # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2Fd542d266-ce95-4875-8bdb-670421c9394f/submitModel
     # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F831218e6-ff91-4b11-b734-a2509d9b37fe/submitModel
 
-    arn = urllib.parse.quote_plus("arn:aws:deepracer:::leaderboard/")
+    # #competition/arn%3Aaws%3Adeepracer%3A%3A082867736673%3Aleaderboard%2Fe9fbfc93-ed99-494c-8b61-ac13a2274859/submitModel
+
+    arn = urllib.parse.quote_plus(args.arn)
 
     # url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/leaderboard/{}/{}/submitModel".format(
     #     args.model, arn, args.season

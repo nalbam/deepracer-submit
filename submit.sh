@@ -5,9 +5,6 @@ OS_NAME="$(uname | awk '{print tolower($0)}')"
 SHELL_DIR=$(dirname $0)
 
 export TARGET=$1
-export LEAGUE=$2
-export SEASON=$3
-export MODEL=$4
 
 _echo() {
     if [ "${TPUT}" != "" ] && [ "$2" != "" ]; then
@@ -82,7 +79,7 @@ _load_season() {
         LIST=build/season.txt
 
         curl -sL ${TARGET_URL} \
-            | jq -r --arg TARGET "${TARGET}" '.[] | select(.target==$TARGET) | "\(.enable) \(.league) \(.season)"' \
+            | jq -r --arg TARGET "${TARGET}" '.[] | select(.target==$TARGET) | "\(.enable) \(.arn) \(.league) \(.season)"' \
             > ${LIST}
 
         _select_one
@@ -93,8 +90,9 @@ _load_season() {
             _error "Not enabled"
         fi
 
-        export LEAGUE="${ARR[1]}"
-        export SEASON="${ARR[2]}"
+        export ARN="${ARR[1]}"
+        export LEAGUE="${ARR[2]}"
+        export SEASON="${ARR[3]}"
     fi
 
     echo "LEAGUE: ${LEAGUE}"
@@ -135,7 +133,7 @@ _run() {
     _load_models
 
     # submit
-    python3 submit.py -t ${TARGET} -l ${LEAGUE} -s ${SEASON} -m ${MODEL}
+    python3 submit.py -a "${ARN}" -t "${TARGET}" -t "${TARGET}" -l "${LEAGUE}" -s "${SEASON}" -m "${MODEL}"
 
     popd
 }
