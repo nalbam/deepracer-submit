@@ -72,7 +72,7 @@ def login_aws(args, browser):
 
     time.sleep(5)
 
-    browser.save_screenshot("build/login-{}.png".format(args.target))
+    # browser.save_screenshot("build/login-{}.png".format(args.target))
 
     browser.find_element_by_id("username").send_keys(args.username)
     browser.find_element_by_id("password").send_keys(args.password)
@@ -98,7 +98,7 @@ def load_model(args, browser):
 
         time.sleep(10)
 
-        browser.save_screenshot("build/load-{}.png".format(args.target))
+        # browser.save_screenshot("build/load-{}.png".format(args.target))
 
         browser.find_element_by_class_name("awsui-button-variant-primary").click()
 
@@ -137,7 +137,7 @@ def submit_model(args, browser):
 
         time.sleep(20)
 
-        browser.save_screenshot("build/submit-{}.png".format(args.target))
+        # browser.save_screenshot("build/submit-{}.png".format(args.target))
 
         browser.find_element_by_class_name("awsui-dropdown-trigger").click()
 
@@ -191,7 +191,7 @@ def result(args, browser):
     except Exception as ex:
         print("Error", ex)
 
-    post_slack(args, "result")
+    # post_slack(args, "result")
 
 
 def post_slack(args, step):
@@ -222,7 +222,7 @@ def main():
 
     submit_model(args, browser)
 
-    result(args, browser)
+    # result(args, browser)
 
     colse_browser(args, browser)
 
