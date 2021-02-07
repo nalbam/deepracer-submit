@@ -1,6 +1,6 @@
 # deepracer-submit
 
-## install
+## install (raspberrypi, ubuntu)
 
 ```bash
 sudo apt update
@@ -13,6 +13,23 @@ pip3 install pytest
 pip3 install selenium
 pip3 install xvfbwrapper
 pip3 install slacker
+```
+
+## install (Amazon Linux 2)
+
+* <https://aws.amazon.com/ko/premiumsupport/knowledge-center/ec2-linux-2-install-gui/>
+
+```bash
+sudo amazon-linux-extras install -y mate-desktop1.x
+sudo amazon-linux-extras install -y epel
+
+sudo yum install -y git jq
+sudo yum install -y chromium chromedriver
+
+sudo pip3 install pytest
+sudo pip3 install selenium
+sudo pip3 install xvfbwrapper
+sudo pip3 install slacker
 ```
 
 ## config
