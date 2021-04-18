@@ -51,7 +51,7 @@ def open_browser(args):
 
     # browser = webdriver.Chrome("/usr/local/bin/chromedriver")
 
-    browser.set_window_size(1600, 1600)
+    browser.set_window_size(1600, 1800)
 
     return browser
 
