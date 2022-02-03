@@ -7,6 +7,7 @@ import urllib
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 from slacker import Slacker
 
 
@@ -74,10 +75,10 @@ def login_aws(args, browser):
 
     browser.save_screenshot("build/login-{}.png".format(args.target))
 
-    browser.find_element_by_id("username").send_keys(args.username)
-    browser.find_element_by_id("password").send_keys(args.password)
+    browser.find_element(By.ID, "username").send_keys(args.username)
+    browser.find_element(By.ID, "password").send_keys(args.password)
 
-    browser.find_element_by_id("signin_button").click()
+    browser.find_element(By.ID, "signin_button").click()
 
     time.sleep(5)
 
@@ -96,13 +97,13 @@ def load_model(args, browser):
     try:
         browser.get(url)
 
-        time.sleep(10)
+        time.sleep(5)
 
         # browser.save_screenshot("build/load-{}.png".format(args.target))
 
-        browser.find_element_by_class_name("awsui-button-variant-primary").click()
+        browser.find_element(By.CLASS_NAME, "awsui-button-variant-primary").click()
 
-        time.sleep(10)
+        time.sleep(5)
 
         browser.save_screenshot("build/load-{}.png".format(args.target))
     except Exception as ex:
@@ -117,8 +118,6 @@ def submit_model(args, browser):
     # #league/arn%3Aaws%3Adeepracer%3Aus-east-1%3A%3Aleaderboard%2Fvirtual-season-2020-05-tt/submitModel
 
     # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F55234c74-2c48-466d-9e66-242ddf05e04d/submitModel
-    # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2Fd542d266-ce95-4875-8bdb-670421c9394f/submitModel
-    # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F831218e6-ff91-4b11-b734-a2509d9b37fe/submitModel
 
     # #competition/arn%3Aaws%3Adeepracer%3A%3A082867736673%3Aleaderboard%2Fe9fbfc93-ed99-494c-8b61-ac13a2274859/submitModel
 
@@ -135,44 +134,24 @@ def submit_model(args, browser):
     try:
         browser.get(url)
 
-        time.sleep(20)
+        time.sleep(5)
 
         browser.save_screenshot("build/submit-{}.png".format(args.target))
 
-        browser.find_element_by_class_name("awsui-dropdown-trigger").click()
-
-        # browser.find_element_by_id("awsui-select-0-dropdown-option-0").click()
+        browser.find_element(By.CLASS_NAME, "awsui-dropdown-trigger").click()
 
         path = '//*[@title="{}"]'.format(args.model)
-        browser.find_element_by_xpath(path).click()
+        browser.find_element(By.XPATH, path).click()
 
-        # for element in browser.find_elements_by_xpath(
-        #     "//*[contains(@data-value)]/@data-value"
-        # ):
-        #     print(element.text)
+        browser.find_element(By.CLASS_NAME, "awsui-button-variant-primary").click()
 
-        #     arn = "arn:aws:deepracer:us-east-1:{}:model/reinforcement_learning/{}".format(
-        #         args.userno, args.model
-        #     )
-
-        #     if element.text == arn:
-        #         element.click()
-        #         break
-
-        # element = browser.find_element_by_class_name("awsui-select-trigger-label")
-        # browser.execute_script(
-        #     'arguments[0].innerHTML = "{}";'.format(args.model), element
-        # )
-
-        browser.find_element_by_class_name("awsui-button-variant-primary").click()
-
-        time.sleep(10)
+        time.sleep(5)
 
         browser.save_screenshot("build/submit-{}.png".format(args.target))
     except Exception as ex:
         print("Error", ex)
 
-    post_slack(args, "submit")
+    # post_slack(args, "submit")
 
 
 def result(args, browser):
@@ -185,7 +164,7 @@ def result(args, browser):
     try:
         browser.get(url)
 
-        time.sleep(25)
+        time.sleep(5)
 
         browser.save_screenshot("build/result-{}.png".format(args.target))
     except Exception as ex:
