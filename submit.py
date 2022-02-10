@@ -123,10 +123,6 @@ def submit_model(args, browser):
 
     arn = urllib.parse.quote_plus(args.arn)
 
-    # url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}/leaderboard/{}/{}/submitModel".format(
-    #     args.model, arn, args.season
-    # )
-
     url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#{}/{}{}/submitModel".format(
         args.league, arn, args.season
     )
@@ -157,9 +153,17 @@ def submit_model(args, browser):
 def result(args, browser):
     print("result")
 
-    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#{}".format(
-        args.league
+    # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F463824f5-78a6-4184-8bea-379e7b4219a1
+
+    arn = urllib.parse.quote_plus(args.arn)
+
+    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#{}/{}{}".format(
+        args.league, arn, args.season
     )
+
+    # url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#{}".format(
+    #     args.league
+    # )
 
     try:
         browser.get(url)
