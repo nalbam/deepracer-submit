@@ -151,7 +151,7 @@ def submit_model(args, browser):
     except Exception as ex:
         print("Error", ex)
 
-    # post_slack(args, "submit")
+    post_slack(args, "submit")
 
 
 def result(args, browser):
@@ -170,11 +170,14 @@ def result(args, browser):
     except Exception as ex:
         print("Error", ex)
 
-    # post_slack(args, "result")
+    post_slack(args, "result")
 
 
 def post_slack(args, step):
     print("post_slack")
+
+    if args.slack_token != "":
+        return
 
     millis = int(round(time.time() * 1000))
 
@@ -201,7 +204,7 @@ def main():
 
     submit_model(args, browser)
 
-    # result(args, browser)
+    result(args, browser)
 
     colse_browser(args, browser)
 
