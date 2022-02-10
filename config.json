@@ -1,0 +1,19 @@
+[
+  {
+    "enable": "true",
+    "target": "tt",
+    "league": "league",
+    "arn": "arn:aws:deepracer:::leaderboard/",
+    "season": "463824f5-78a6-4184-8bea-379e7b4219a1",
+    "models": [
+      {
+        "name": "my-model-01",
+        "best": ""
+      },
+      {
+        "name": "my-model-02",
+        "best": ""
+      }
+    ]
+  }
+]

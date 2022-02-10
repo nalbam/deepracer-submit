@@ -206,9 +206,9 @@ def main():
 
     # load_model(args, browser)
 
-    submit_model(args, browser)
+    # submit_model(args, browser)
 
-    # result(args, browser)
+    result(args, browser)
 
     colse_browser(args, browser)
 
