@@ -176,7 +176,7 @@ def result(args, browser):
 def post_slack(args, step):
     print("post_slack")
 
-    if args.slack_token != "":
+    if args.slack_token == "":
         return
 
     millis = int(round(time.time() * 1000))
