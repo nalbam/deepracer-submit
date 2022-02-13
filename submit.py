@@ -141,7 +141,7 @@ def submit_model(args, browser):
 
         browser.find_element(By.CLASS_NAME, "awsui-button-variant-primary").click()
 
-        time.sleep(5)
+        time.sleep(10)
 
         browser.save_screenshot("build/submit-{}.png".format(args.target))
     except Exception as ex:
