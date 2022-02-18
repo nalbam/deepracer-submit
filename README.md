@@ -85,5 +85,3 @@ bash submit.sh $TARGET
 ## slack
 
 ![submit](./images/submit-tt.png)
-
-![result](./images/result-tt.png)
