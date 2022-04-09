@@ -22,7 +22,7 @@ SEASON = os.environ.get("SEASON", "season")
 MODEL = os.environ.get("MODEL", "model")
 
 SLACK_TOKEN = os.environ.get("SLACK_TOKEN", "")
-SLACK_CHANNAL = os.environ.get("SLACK_CHANNAL", "#sandbox")
+SLACK_CHANNEL = os.environ.get("SLACK_CHANNEL", "#sandbox")
 
 
 def parse_args():
@@ -36,7 +36,7 @@ def parse_args():
     p.add_argument("-s", "--season", default=SEASON, help="season")
     p.add_argument("-m", "--model", default=MODEL, help="model")
     p.add_argument("--slack-token", default=SLACK_TOKEN, help="slack token")
-    p.add_argument("--slack-channal", default=SLACK_CHANNAL, help="slack channal")
+    p.add_argument("--slack-channel", default=SLACK_CHANNEL, help="slack channel")
     return p.parse_args()
 
 
@@ -137,7 +137,7 @@ def post_slack(args, step):
     try:
         slack = Slacker(args.slack_token)
 
-        slack.files.upload(file, channels=[args.slack_channal], title=text)
+        slack.files.upload(file, channels=[args.slack_channel], title=text)
 
     except KeyError as ex:
         print("Environment variable %s not set." % str(ex))

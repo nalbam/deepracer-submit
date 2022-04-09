@@ -49,7 +49,7 @@ export SEASON="virtual-season-2020-03-tt"
 export MODEL="model-name"
 
 export SLACK_TOKEN="xoxb-1111-2222-xxxx"
-export SLACK_CHANNAL="#sandbox"
+export SLACK_CHANNEL="#sandbox"
 ```
 
 ### multi league
@@ -63,7 +63,7 @@ export PASSWORD="password"
 export TARGET_URL="https://nalbam.com/deepracer/submit.json"
 
 export SLACK_TOKEN="xoxb-1111-2222-xxxx"
-export SLACK_CHANNAL="#sandbox"
+export SLACK_CHANNEL="#sandbox"
 ```
 
 ## usage
