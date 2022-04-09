@@ -55,7 +55,7 @@ export SLACK_CHANNAL="#sandbox"
 ### multi league
 
 ```bash
-# config/$LEAGUE.sh
+# config/deepracer.sh
 export USERNO="123456789012"
 export USERNAME="username"
 export PASSWORD="password"
