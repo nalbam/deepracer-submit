@@ -11,18 +11,18 @@ from selenium.webdriver.common.by import By
 from slacker import Slacker
 
 
-USERNO = os.environ.get("USERNO")
-USERNAME = os.environ.get("USERNAME")
-PASSWORD = os.environ.get("PASSWORD")
+USERNO = os.environ.get("DR_USERNO")
+USERNAME = os.environ.get("DR_USERNAME")
+PASSWORD = os.environ.get("DR_PASSWORD")
 
-ARN = os.environ.get("ARN", "arn")
-TARGET = os.environ.get("TARGET", "tt")
-LEAGUE = os.environ.get("LEAGUE", "league")
-SEASON = os.environ.get("SEASON", "season")
-MODEL = os.environ.get("MODEL", "model")
+ARN = os.environ.get("DR_ARN", "arn")
+TARGET = os.environ.get("DR_TARGET", "tt")
+LEAGUE = os.environ.get("DR_LEAGUE", "league")
+SEASON = os.environ.get("DR_SEASON", "season")
+MODEL = os.environ.get("DR_MODEL", "model")
 
-SLACK_TOKEN = os.environ.get("SLACK_TOKEN", "")
-SLACK_CHANNEL = os.environ.get("SLACK_CHANNEL", "#sandbox")
+SLACK_TOKEN = os.environ.get("DR_SLACK_TOKEN", "")
+SLACK_CHANNEL = os.environ.get("DR_SLACK_CHANNEL", "#sandbox")
 
 
 def parse_args():

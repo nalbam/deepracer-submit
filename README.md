@@ -38,32 +38,32 @@ sudo pip3 install slacker
 
 ```bash
 # config/deepracer.sh
-export USERNO="123456789012"
-export USERNAME="username"
-export PASSWORD="password"
+export DR_USERNO="123456789012"
+export DR_USERNAME="username"
+export DR_PASSWORD="password"
 
-export ARN="arn:aws:deepracer:::leaderboard/"
-export TARGET="tt" # [tt, oa, h2h, s-tt, s-oa]
-export LEAGUE="league" # [league, summitLeague, competition]
-export SEASON="virtual-season-2020-03-tt"
-export MODEL="model-name"
+export DR_ARN="arn:aws:deepracer:::leaderboard/"
+export DR_TARGET="tt" # [tt, oa, h2h, s-tt, s-oa]
+export DR_LEAGUE="league" # [league, summitLeague, competition]
+export DR_SEASON="virtual-season-2020-03-tt"
+export DR_MODEL="model-name"
 
-export SLACK_TOKEN="xoxb-1111-2222-xxxx"
-export SLACK_CHANNEL="#sandbox"
+export DR_SLACK_TOKEN="xoxb-1111-2222-xxxx"
+export DR_SLACK_CHANNEL="#sandbox"
 ```
 
 ### multi league
 
 ```bash
 # config/deepracer.sh
-export USERNO="123456789012"
-export USERNAME="username"
-export PASSWORD="password"
+export DR_USERNO="123456789012"
+export DR_USERNAME="username"
+export DR_PASSWORD="password"
 
-export TARGET_URL="https://nalbam.com/deepracer/submit.json"
+export DR_TARGET_URL="https://nalbam.com/deepracer/submit.json"
 
-export SLACK_TOKEN="xoxb-1111-2222-xxxx"
-export SLACK_CHANNEL="#sandbox"
+export DR_SLACK_TOKEN="xoxb-1111-2222-xxxx"
+export DR_SLACK_CHANNEL="#sandbox"
 ```
 
 ## usage
