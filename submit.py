@@ -84,33 +84,6 @@ def login_aws(args, browser):
 
     browser.save_screenshot("build/login-{}.png".format(args.target))
 
-    # post_slack(args,"login")
-
-
-def load_model(args, browser):
-    print("load_model")
-
-    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#model/{}".format(
-        args.model
-    )
-
-    try:
-        browser.get(url)
-
-        time.sleep(5)
-
-        # browser.save_screenshot("build/load-{}.png".format(args.target))
-
-        browser.find_element(By.CLASS_NAME, "awsui-button-variant-primary").click()
-
-        time.sleep(5)
-
-        browser.save_screenshot("build/load-{}.png".format(args.target))
-    except Exception as ex:
-        print("Error", ex)
-
-    # post_slack(args,"load")
-
 
 def submit_model(args, browser):
     print("submit_model", args.model)
@@ -150,33 +123,6 @@ def submit_model(args, browser):
     post_slack(args, "submit")
 
 
-def result(args, browser):
-    print("result")
-
-    # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F463824f5-78a6-4184-8bea-379e7b4219a1
-
-    arn = urllib.parse.quote_plus(args.arn)
-
-    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#{}/{}{}".format(
-        args.league, arn, args.season
-    )
-
-    # url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#{}".format(
-    #     args.league
-    # )
-
-    try:
-        browser.get(url)
-
-        time.sleep(5)
-
-        browser.save_screenshot("build/result-{}.png".format(args.target))
-    except Exception as ex:
-        print("Error", ex)
-
-    post_slack(args, "result")
-
-
 def post_slack(args, step):
     print("post_slack")
 
@@ -200,15 +146,14 @@ def post_slack(args, step):
 def main():
     args = parse_args()
 
+    if args.userno == "":
+        return
+
     browser = open_browser(args)
 
     login_aws(args, browser)
 
-    # load_model(args, browser)
-
     submit_model(args, browser)
-
-    # result(args, browser)
 
     colse_browser(args, browser)
 

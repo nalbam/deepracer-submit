@@ -77,9 +77,8 @@ bash submit.sh $TARGET
 ## crontab
 
 ```bash
-3,23,43 * * * * /home/pi/deepracer-submit/submit.sh tt  > /tmp/submit-tt.log 2>&1
-6,26,46 * * * * /home/pi/deepracer-submit/submit.sh oa  > /tmp/submit-oa.log 2>&1
-9,36,49 * * * * /home/pi/deepracer-submit/submit.sh h2h > /tmp/submit-h2h.log 2>&1
+10,40 * * * * /home/pi/deepracer-submit/submit.sh tt >  /tmp/submit-tt.log 2>&1
+20,50 * * * * /home/pi/deepracer-submit/result.sh tt >> /tmp/submit-tt.log 2>&1
 ```
 
 ## slack
