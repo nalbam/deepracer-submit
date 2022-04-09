@@ -34,7 +34,6 @@ terraform.tfplan
 # maven
 build/
 builds/
-config/
 target/
 
 # eclipse
