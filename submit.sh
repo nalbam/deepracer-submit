@@ -133,6 +133,7 @@ _run() {
     _load_models
 
     # submit
+    _command "submit.py ${DR_ARN} ${DR_TARGET} ${DR_LEAGUE} ${DR_SEASON} ${DR_MODEL}"
     python3 submit.py -a "${DR_ARN}" -t "${DR_TARGET}" -l "${DR_LEAGUE}" -s "${DR_SEASON}" -m "${DR_MODEL}"
 
     popd
