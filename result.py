@@ -65,7 +65,7 @@ def close_browser(args, browser):
 
 
 def login_aws(args, browser):
-    print("login_aws", args.username)
+    print("+ login_aws", args.username)
 
     url = "https://{}.signin.aws.amazon.com/console".format(args.userno)
 
@@ -88,7 +88,7 @@ def login_aws(args, browser):
 
 
 def result(args, browser):
-    print("result")
+    print("+ result")
 
     # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F463824f5-78a6-4184-8bea-379e7b4219a1
 
@@ -120,7 +120,7 @@ def post_slack(args, step):
     if args.slack_token == "":
         return
 
-    print("post_slack {}".format(args.slack_channel))
+    print("+ post_slack", args.slack_channel)
 
     millis = int(round(time.time() * 1000))
 
