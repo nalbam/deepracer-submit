@@ -133,7 +133,7 @@ _submit() {
     _load_models
 
     # submit
-    _command "submit.py ${DR_ARN}${DR_SEASON} ${DR_TARGET} ${DR_MODEL}"
+    _command "submit.py ${DR_ARN}${DR_SEASON} ${DR_MODEL}"
     python3 submit.py -a "${DR_ARN}" -t "${DR_TARGET}" -l "${DR_LEAGUE}" -s "${DR_SEASON}" -m "${DR_MODEL}"
 
     popd
@@ -147,7 +147,7 @@ _result() {
     _load_season
 
     # result
-    _command "result.py ${DR_ARN}${DR_SEASON} ${DR_TARGET}"
+    _command "result.py ${DR_ARN}${DR_SEASON}"
     python3 result.py -a "${DR_ARN}" -t "${DR_TARGET}" -l "${DR_LEAGUE}" -s "${DR_SEASON}"
 
     popd
