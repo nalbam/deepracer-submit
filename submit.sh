@@ -123,7 +123,7 @@ _load_models() {
     fi
 }
 
-_run() {
+_submit() {
     pushd ${SHELL_DIR}
 
     _init
@@ -139,4 +139,18 @@ _run() {
     popd
 }
 
-_run
+_result() {
+    pushd ${SHELL_DIR}
+
+    _init
+
+    _load_season
+
+    # result
+    _command "result.py ${DR_ARN} ${DR_TARGET} ${DR_LEAGUE} ${DR_SEASON}"
+    python3 result.py -a "${DR_ARN}" -t "${DR_TARGET}" -l "${DR_LEAGUE}" -s "${DR_SEASON}"
+
+    popd
+}
+
+_submit

@@ -57,7 +57,7 @@ def open_browser(args):
     return browser
 
 
-def colse_browser(args, browser):
+def close_browser(args, browser):
     try:
         browser.close()
     except Exception as ex:
@@ -124,10 +124,10 @@ def submit_model(args, browser):
 
 
 def post_slack(args, step):
-    print("post_slack")
-
     if args.slack_token == "":
         return
+
+    print("post_slack {}".format(args.slack_channel))
 
     millis = int(round(time.time() * 1000))
 
@@ -155,7 +155,7 @@ def main():
 
     submit_model(args, browser)
 
-    colse_browser(args, browser)
+    close_browser(args, browser)
 
 
 if __name__ == "__main__":
