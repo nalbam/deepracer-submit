@@ -81,8 +81,8 @@ def login_aws(doc, args, browser):
 def submit_model(doc, args, browser):
     print("+ submit_model", args.target)
 
-    arn = None
-    model = None
+    arn = ""
+    model = ""
 
     for attrs in doc["leaderboards"]:
         if attrs["name"] == args.target:
@@ -95,6 +95,14 @@ def submit_model(doc, args, browser):
                 model = random.choice(models)
 
             break
+
+    if arn == "":
+        print("Not found arn.")
+        return
+
+    if model == "":
+        print("Empty model.")
+        return
 
     # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F9f6ca6de-ecfa-467a-a7d9-c899a811a206/submitModel
     # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F55234c74-2c48-466d-9e66-242ddf05e04d/submitModel
@@ -110,10 +118,6 @@ def submit_model(doc, args, browser):
         print("arn: ", arn)
         print("model: ", model)
         print("url: ", url)
-        return
-
-    if model == None:
-        print("Empty model.")
         return
 
     try:
@@ -140,7 +144,7 @@ def submit_model(doc, args, browser):
 
 
 def post_slack(doc, text, screenshot):
-    if doc["slack"]["tocken"] == "":
+    if doc["slack"]["token"] == "":
         return
 
     print("+ post_slack", doc["slack"]["channel"])
@@ -148,7 +152,7 @@ def post_slack(doc, text, screenshot):
     file = "{}/{}".format(os.getcwd(), screenshot)
 
     try:
-        slack = Slacker(doc["slack"]["tocken"])
+        slack = Slacker(doc["slack"]["token"])
 
         slack.files.upload(file, channels=[doc["slack"]["channel"]], title=text)
 
