@@ -162,7 +162,9 @@ def main():
         print("Empty target.")
         return
 
-    filepath = format("{}/config/deepracer.json", os.getcwd())
+    filepath = "{}/config/deepracer.json".format(
+        os.path.dirname(os.path.realpath(__file__))
+    )
 
     if os.path.exists(filepath):
         if args.debug == "True":
