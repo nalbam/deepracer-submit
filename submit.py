@@ -61,6 +61,7 @@ def login_aws(doc, args, browser):
         return
 
     # screenshot = "config/login-{}.png".format(doc["userno"])
+    # screenshot = "{}/config/login-{}.png".format(os.path.dirname(os.path.realpath(__file__)), doc["userno"])
 
     browser.get(url)
 
@@ -112,7 +113,8 @@ def submit_model(doc, args, browser):
         arn
     )
 
-    screenshot = "config/submit-{}.png".format(args.target)
+    # screenshot = "config/submit-{}.png".format(args.target)
+    screenshot = "{}/config/submit-{}.png".format(os.path.dirname(os.path.realpath(__file__)), args.target)
 
     if args.debug == "True":
         print("arn: ", arn)
@@ -149,12 +151,12 @@ def post_slack(doc, text, screenshot):
 
     print("+ post_slack", doc["slack"]["channel"])
 
-    filepath = "{}/{}".format(os.path.dirname(os.path.realpath(__file__)), screenshot)
+    # filepath = "{}/{}".format(os.path.dirname(os.path.realpath(__file__)), screenshot)
 
     try:
         slack = Slacker(doc["slack"]["token"])
 
-        slack.files.upload(filepath, channels=[doc["slack"]["channel"]], title=text)
+        slack.files.upload(screenshot, channels=[doc["slack"]["channel"]], title=text)
 
     except KeyError as ex:
         print("Environment variable %s not set." % str(ex))
