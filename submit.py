@@ -149,7 +149,7 @@ def post_slack(doc, text, screenshot):
 
     print("+ post_slack", doc["slack"]["channel"])
 
-    filepath = "{}/{}".format(os.path.dirname(os.path.realpath(__file__), screenshot))
+    filepath = "{}/{}".format(os.path.dirname(os.path.realpath(__file__)), screenshot)
 
     try:
         slack = Slacker(doc["slack"]["token"])
