@@ -34,50 +34,42 @@ sudo pip3 install slacker
 
 ## config
 
-### single league
-
 ```bash
-# config/deepracer.sh
-export DR_USERNO="123456789012"
-export DR_USERNAME="username"
-export DR_PASSWORD="password"
-
-export DR_ARN="arn:aws:deepracer:::leaderboard/"
-export DR_TARGET="tt" # [tt, oa, h2h, s-tt, s-oa]
-export DR_LEAGUE="league" # [league, summitLeague, competition]
-export DR_SEASON="virtual-season-2020-03-tt"
-export DR_MODEL="model-name"
-
-export DR_SLACK_TOKEN="xoxb-1111-2222-xxxx"
-export DR_SLACK_CHANNEL="#sandbox"
+vi config/deepracer.json
 ```
 
-### multi league
-
-```bash
-# config/deepracer.sh
-export DR_USERNO="123456789012"
-export DR_USERNAME="username"
-export DR_PASSWORD="password"
-
-export DR_TARGET_URL="https://nalbam.com/deepracer/submit.json"
-
-export DR_SLACK_TOKEN="xoxb-1111-2222-xxxx"
-export DR_SLACK_CHANNEL="#sandbox"
+```json
+{
+  "userno": "",
+  "username": "username",
+  "password": "password",
+  "slack": {
+    "token": "",
+    "channel": "#sandbox"
+  },
+  "leaderboards": [
+    {
+      "name": "2022-04-pro",
+      "arn": "league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F2487f90e-3cd5-48e0-a264-bb8a1742f54c",
+      "models": [
+        "my-model-01",
+        "my-model-02"
+      ]
+    }
+  ]
+}
 ```
 
-## usage
+## submit
 
 ```bash
-bash submit.sh
-# or
-bash submit.sh $TARGET
+./submit.py -t 2022-04-pro -d True
 ```
 
 ## crontab
 
 ```bash
-10,20,30,40,50 * * * * /home/pi/deepracer-submit/submit.sh tt > /tmp/submit-tt.log 2>&1
+10,20,30,40,50 * * * * /home/ec2-user/deepracer-submit/submit.py -t 2022-04-pro > /tmp/submit.log 2>&1
 ```
 
 ## slack

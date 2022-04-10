@@ -1,9 +1,11 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import argparse
 import os
 import time
-import urllib
+import json
+import random
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -11,36 +13,18 @@ from selenium.webdriver.common.by import By
 from slacker import Slacker
 
 
-USERNO = os.environ.get("DR_USERNO")
-USERNAME = os.environ.get("DR_USERNAME")
-PASSWORD = os.environ.get("DR_PASSWORD")
-
-ARN = os.environ.get("DR_ARN", "arn")
-TARGET = os.environ.get("DR_TARGET", "tt")
-LEAGUE = os.environ.get("DR_LEAGUE", "league")
-SEASON = os.environ.get("DR_SEASON", "season")
-MODEL = os.environ.get("DR_MODEL", "model")
-
-SLACK_TOKEN = os.environ.get("DR_SLACK_TOKEN", "")
-SLACK_CHANNEL = os.environ.get("DR_SLACK_CHANNEL", "#sandbox")
-
-
 def parse_args():
     p = argparse.ArgumentParser(description="deepracer submit")
-    p.add_argument("--userno", default=USERNO, help="userno")
-    p.add_argument("--username", default=USERNAME, help="username")
-    p.add_argument("--password", default=PASSWORD, help="password")
-    p.add_argument("-a", "--arn", default=ARN, help="arn")
-    p.add_argument("-t", "--target", default=TARGET, help="target")
-    p.add_argument("-l", "--league", default=LEAGUE, help="league")
-    p.add_argument("-s", "--season", default=SEASON, help="season")
-    p.add_argument("-m", "--model", default=MODEL, help="model")
-    p.add_argument("--slack-token", default=SLACK_TOKEN, help="slack token")
-    p.add_argument("--slack-channel", default=SLACK_CHANNEL, help="slack channel")
+    p.add_argument("-t", "--target", default="", help="target", required=True)
+    p.add_argument("-m", "--model", default="", help="model")
+    p.add_argument("-d", "--debug", default="False", help="debug")
     return p.parse_args()
 
 
 def open_browser(args):
+    if args.debug == "True":
+        return None
+
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--disable-gpu")
@@ -57,87 +41,115 @@ def open_browser(args):
     return browser
 
 
-def close_browser(args, browser):
+def close_browser(browser, args):
+    if args.debug == "True":
+        return
+
     try:
         browser.close()
     except Exception as ex:
         print("Error", ex)
 
 
-def login_aws(args, browser):
-    print("+ login_aws", args.username)
+def login_aws(doc, args, browser):
+    print("+ login_aws", doc["username"])
 
-    url = "https://{}.signin.aws.amazon.com/console".format(args.userno)
+    url = "https://{}.signin.aws.amazon.com/console".format(doc["userno"])
+
+    if args.debug == "True":
+        print("url: ", url)
+        return
+
+    # screenshot = "build/login-{}.png".format(doc["userno"])
 
     browser.get(url)
 
     time.sleep(5)
 
-    browser.save_screenshot("build/login-{}.png".format(args.target))
+    # browser.save_screenshot(screenshot)
 
-    browser.find_element(By.ID, "username").send_keys(args.username)
-    browser.find_element(By.ID, "password").send_keys(args.password)
+    browser.find_element(By.ID, "username").send_keys(doc["username"])
+    browser.find_element(By.ID, "password").send_keys(doc["password"])
 
     browser.find_element(By.ID, "signin_button").click()
 
     time.sleep(5)
 
-    browser.save_screenshot("build/login-{}.png".format(args.target))
+    # browser.save_screenshot(screenshot)
 
 
-def submit_model(args, browser):
-    print("+ submit_model", args.model)
+def submit_model(doc, args, browser):
+    print("+ submit_model", args.target)
+
+    arn = None
+    model = None
+
+    for attrs in doc["leaderboards"]:
+        if attrs["name"] == args.target:
+            arn = attrs["arn"]
+            models = attrs["models"]
+
+            if args.model != "":
+                model = args.model
+            elif len(models) > 0:
+                model = random.choice(models)
+
+            break
+
+    if args.debug == "True":
+        print("arn: ", arn)
+        print("model: ", model)
+        return
+
+    if model == None:
+        print("Empty model.")
+        return
 
     # #league/arn%3Aaws%3Adeepracer%3Aus-east-1%3A%3Aleaderboard%2Fvirtual-season-2020-05-tt/submitModel
-
     # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F55234c74-2c48-466d-9e66-242ddf05e04d/submitModel
-
     # #competition/arn%3Aaws%3Adeepracer%3A%3A082867736673%3Aleaderboard%2Fe9fbfc93-ed99-494c-8b61-ac13a2274859/submitModel
 
-    arn = urllib.parse.quote_plus(args.arn)
-
-    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#{}/{}{}/submitModel".format(
-        args.league, arn, args.season
+    url = "https://console.aws.amazon.com/deepracer/home?region=us-east-1#{}/submitModel".format(
+        arn
     )
+
+    screenshot = "build/submit-{}.png".format(args.target)
 
     try:
         browser.get(url)
 
         time.sleep(5)
 
-        browser.save_screenshot("build/submit-{}.png".format(args.target))
+        browser.save_screenshot(screenshot)
 
         browser.find_element(By.CLASS_NAME, "awsui-dropdown-trigger").click()
 
-        path = '//*[@title="{}"]'.format(args.model)
+        path = '//*[@title="{}"]'.format(doc.model)
         browser.find_element(By.XPATH, path).click()
 
         browser.find_element(By.CLASS_NAME, "awsui-button-variant-primary").click()
 
         time.sleep(10)
 
-        browser.save_screenshot("build/submit-{}.png".format(args.target))
+        browser.save_screenshot(screenshot)
     except Exception as ex:
         print("Error", ex)
 
-    post_slack(args, "submit")
+    post_slack(doc, "{} : {}".format(args.target, model), screenshot)
 
 
-def post_slack(args, step):
-    if args.slack_token == "":
+def post_slack(doc, text, screenshot):
+    if doc["slack"]["tocken"] == "":
         return
 
-    print("+ post_slack", args.slack_channel)
+    print("+ post_slack", doc["slack"]["channel"])
 
-    millis = int(round(time.time() * 1000))
-
-    file = "{}/build/{}-{}.png".format(os.getcwd(), step, args.target)
-    text = "{} : {} : {} : {}".format(args.target, args.model, step, millis)
+    file = "{}/{}".format(os.getcwd(), screenshot)
 
     try:
-        slack = Slacker(args.slack_token)
+        slack = Slacker(doc["slack"]["tocken"])
 
-        slack.files.upload(file, channels=[args.slack_channel], title=text)
+        slack.files.upload(file, channels=[doc["slack"]["channel"]], title=text)
 
     except KeyError as ex:
         print("Environment variable %s not set." % str(ex))
@@ -146,16 +158,32 @@ def post_slack(args, step):
 def main():
     args = parse_args()
 
-    if args.userno == "":
+    if args.target == "":
+        print("Empty target.")
         return
 
-    browser = open_browser(args)
+    filepath = "config/deepracer.json"
 
-    login_aws(args, browser)
+    if os.path.exists(filepath):
+        if args.debug == "True":
+            print("filepath : {}".format(filepath))
 
-    submit_model(args, browser)
+        doc = None
 
-    close_browser(args, browser)
+        with open(filepath, "r") as file:
+            doc = json.load(file)
+
+            if doc["userno"] == "":
+                print("Empty userno.")
+                return
+
+            browser = open_browser(args)
+
+            login_aws(doc, args, browser)
+
+            submit_model(doc, args, browser)
+
+            close_browser(browser, args)
 
 
 if __name__ == "__main__":
