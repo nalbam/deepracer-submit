@@ -49,6 +49,14 @@ vi config/deepracer.json
   },
   "leaderboards": [
     {
+      "name": "open",
+      "arn": "league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F1d5f46b1-a051-40fc-8716-aabd39e51d1e",
+      "models": [
+        "my-model-01",
+        "my-model-02"
+      ]
+    },
+    {
       "name": "pro",
       "arn": "league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F9f6ca6de-ecfa-467a-a7d9-c899a811a206",
       "models": [
