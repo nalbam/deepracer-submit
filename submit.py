@@ -129,7 +129,7 @@ def submit_model(doc, args, browser):
 
         browser.find_element(By.CLASS_NAME, "awsui-dropdown-trigger").click()
 
-        path = '//*[@title="{}"]'.format(doc.model)
+        path = '//*[@title="{}"]'.format(model)
         browser.find_element(By.XPATH, path).click()
 
         browser.find_element(By.CLASS_NAME, "awsui-button-variant-primary").click()
