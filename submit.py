@@ -96,7 +96,7 @@ def submit_model(doc, args, browser):
 
             break
 
-    # #league/arn%3Aaws%3Adeepracer%3Aus-east-1%3A%3Aleaderboard%2Fvirtual-season-2020-05-tt/submitModel
+    # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F9f6ca6de-ecfa-467a-a7d9-c899a811a206/submitModel
     # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F55234c74-2c48-466d-9e66-242ddf05e04d/submitModel
     # #competition/arn%3Aaws%3Adeepracer%3A%3A082867736673%3Aleaderboard%2Fe9fbfc93-ed99-494c-8b61-ac13a2274859/submitModel
 
