@@ -71,7 +71,7 @@ vi config/deepracer.json
 ## submit
 
 ```bash
-./submit.py -t 2022-04-pro -d True
+./submit.py -t open -d True
 ```
 
 ## crontab
