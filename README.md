@@ -47,7 +47,7 @@ vi config/deepracer.json
     "token": "",
     "channel": "#sandbox"
   },
-  "leaderboards": [
+  "races": [
     {
       "name": "open",
       "arn": "league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F1d5f46b1-a051-40fc-8716-aabd39e51d1e",

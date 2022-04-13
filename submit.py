@@ -85,7 +85,7 @@ def submit_model(doc, args, browser):
     arn = ""
     model = ""
 
-    for attrs in doc["leaderboards"]:
+    for attrs in doc["races"]:
         if attrs["name"] == args.target:
             arn = attrs["arn"]
             models = attrs["models"]
