@@ -114,7 +114,9 @@ def submit_model(doc, args, browser):
     )
 
     # screenshot = "config/submit-{}.png".format(args.target)
-    screenshot = "{}/config/submit-{}.png".format(os.path.dirname(os.path.realpath(__file__)), args.target)
+    screenshot = "{}/config/submit-{}.png".format(
+        os.path.dirname(os.path.realpath(__file__)), args.target
+    )
 
     if args.debug == "True":
         print("arn: ", arn)
@@ -129,11 +131,18 @@ def submit_model(doc, args, browser):
 
         browser.save_screenshot(screenshot)
 
+        # awsui-modal-content awsui-util-container
+        if browser.find_element(By.CLASS_NAME, "awsui-util-container"):
+            # awsui-button awsui-button-variant-primary awsui-hover-child-icons
+            browser.find_element(By.CLASS_NAME, "awsui-button-variant-primary").click()
+
+        # awsui-dropdown-trigger awsui-select-trigger awsui-select-trigger-no-option awsui-select-trigger-variant-label
         browser.find_element(By.CLASS_NAME, "awsui-dropdown-trigger").click()
 
         path = '//*[@title="{}"]'.format(model)
         browser.find_element(By.XPATH, path).click()
 
+        # awsui-button awsui-button-variant-primary awsui-hover-child-icons
         browser.find_element(By.CLASS_NAME, "awsui-button-variant-primary").click()
 
         time.sleep(10)
