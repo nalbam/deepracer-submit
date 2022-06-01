@@ -149,6 +149,7 @@ def submit_model(doc, args, browser):
 
         browser.save_screenshot(screenshot)
     except Exception as ex:
+        model = ex
         print("Error", ex)
 
     post_slack(doc, "{} : {}".format(args.target, model), screenshot)
