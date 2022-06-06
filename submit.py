@@ -134,7 +134,8 @@ def submit_model(doc, args, browser):
         # awsui-modal-content awsui-util-container
         if browser.find_element(By.CLASS_NAME, "awsui-util-container"):
             # awsui-button awsui-button-variant-primary awsui-hover-child-icons
-            browser.find_element(By.CLASS_NAME, "awsui-button-variant-primary").click()
+            # browser.find_element(By.CLASS_NAME, "awsui-button-variant-primary").click()
+            browser.find_element(By.xpath("//hmtl")).click()
 
         # awsui-dropdown-trigger awsui-select-trigger awsui-select-trigger-no-option awsui-select-trigger-variant-label
         browser.find_element(By.CLASS_NAME, "awsui-dropdown-trigger").click()
