@@ -131,11 +131,14 @@ def submit_model(doc, args, browser):
 
         browser.save_screenshot(screenshot)
 
-        # awsui-modal-content awsui-util-container
-        if browser.find_element(By.CLASS_NAME, "awsui-util-container"):
-            # awsui-button awsui-button-variant-primary awsui-hover-child-icons
-            # browser.find_element(By.CLASS_NAME, "awsui-button-variant-primary").click()
-            browser.find_element(By.XPATH, "//body").click()
+        try:
+          # awsui-modal-content awsui-util-container
+          if browser.find_element(By.CLASS_NAME, "awsui-util-container"):
+              # awsui-button awsui-button-variant-primary awsui-hover-child-icons
+              # browser.find_element(By.CLASS_NAME, "awsui-button-variant-primary").click()
+              browser.find_element(By.XPATH, "//body").click()
+        except Exception as ex:
+            print("Error", ex)
 
         # awsui-dropdown-trigger awsui-select-trigger awsui-select-trigger-no-option awsui-select-trigger-variant-label
         browser.find_element(By.CLASS_NAME, "awsui-dropdown-trigger").click()
