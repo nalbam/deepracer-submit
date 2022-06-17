@@ -136,14 +136,14 @@ def submit_model(doc, args, browser):
         except Exception as ex:
             print("Error", ex)
 
-        # awsui-dropdown-trigger awsui-select-trigger awsui-select-trigger-no-option awsui-select-trigger-variant-label
-        browser.find_element(By.CLASS_NAME, "awsui-dropdown-trigger").click()
+        # class="awsui_button-trigger_18eso_5wauj_97 awsui_pressed_18eso_5wauj_151 awsui_has-caret_18eso_5wauj_135"
+        browser.find_element(By.CLASS_NAME, "awsui_button-trigger_18eso_5wauj_97").click()
 
         path = '//*[@title="{}"]'.format(model)
         browser.find_element(By.XPATH, path).click()
 
-        # awsui-button awsui-button-variant-primary awsui-hover-child-icons
-        browser.find_element(By.CLASS_NAME, "awsui-button-variant-primary").click()
+        # class="awsui_button_vjswe_1asap_101 awsui_variant-primary_vjswe_1asap_206"
+        browser.find_element(By.CLASS_NAME, "awsui_button_vjswe_1asap_101").click()
 
         time.sleep(10)
 
