@@ -137,13 +137,13 @@ def submit_model(doc, args, browser):
             print("Error", ex)
 
         # awsui-dropdown-trigger awsui-select-trigger awsui-select-trigger-no-option awsui-select-trigger-variant-label
-        browser.find_element(By.CLASS_NAME, "awsui-dropdown-trigger").click()
+        browser.find_element(By.CSS_SELECTOR, "button[class^='awsui_button-trigger']").click()
 
         path = '//*[@title="{}"]'.format(model)
         browser.find_element(By.XPATH, path).click()
 
         # awsui-button awsui-button-variant-primary awsui-hover-child-icons
-        browser.find_element(By.CLASS_NAME, "awsui-button-variant-primary").click()
+        browser.find_element(By.CSS_SELECTOR, "button[class*='awsui_variant-primary']").click()
 
         time.sleep(10)
 
