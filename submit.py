@@ -132,11 +132,7 @@ def submit_model(doc, args, browser):
         browser.save_screenshot(screenshot)
 
         try:
-          # awsui-modal-content awsui-util-container
-          if browser.find_element(By.CLASS_NAME, "awsui-util-container"):
-              # awsui-button awsui-button-variant-primary awsui-hover-child-icons
-              # browser.find_element(By.CLASS_NAME, "awsui-button-variant-primary").click()
-              browser.find_element(By.XPATH, "//body").click()
+            browser.find_element(By.XPATH, "//body").click()
         except Exception as ex:
             print("Error", ex)
 
