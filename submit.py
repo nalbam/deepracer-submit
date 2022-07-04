@@ -32,6 +32,9 @@ def open_browser(args):
     # options.add_argument("--no-sandbox")
     # options.add_argument("--single-process")
     options.add_argument("--disable-dev-shm-usage")
+    options.add_argument(
+        "user-agent=Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko"
+    )
 
     browser = webdriver.Chrome(options=options)
 
@@ -134,7 +137,9 @@ def submit_model(doc, args, browser):
             browser.find_element(By.XPATH, "//body").click()
 
             # PLCHLDR__new_car_reward_modal
-            browser.find_element(By.XPATH, '//div[@id="PLCHLDR__new_car_reward_modal"]').click()
+            browser.find_element(
+                By.XPATH, '//div[@id="PLCHLDR__new_car_reward_modal"]'
+            ).click()
 
             # # awsui_dismiss-control_1d2i7_1qdlw_312 awsui_button_vjswe_1asap_101 awsui_variant-modal-dismiss_vjswe_1asap_162
             # browser.find_element(
