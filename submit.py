@@ -130,10 +130,8 @@ def submit_model(doc, args, browser):
 
         time.sleep(5)
 
-        browser.save_screenshot(screenshot)
-
         try:
-            browser.find_element(By.XPATH, "//body").click()
+            # browser.find_element(By.XPATH, "//body").click()
 
             # awsui_dismiss-control_1d2i7_1qdlw_312 awsui_button_vjswe_1asap_101 awsui_variant-modal-dismiss_vjswe_1asap_162
             browser.find_element(
@@ -146,11 +144,10 @@ def submit_model(doc, args, browser):
             # ).click()
         except Exception as ex:
             print("Error", ex)
-            # post_slack(doc, "{} : {}".format(args.target, ex))
+            browser.save_screenshot(screenshot)
+            post_slack(doc, "{} : {}".format(args.target, ex), screenshot)
 
         time.sleep(3)
-
-        browser.save_screenshot(screenshot)
 
         # awsui_button-trigger_18eso_5wauj_97 awsui_has-caret_18eso_5wauj_135
         browser.find_element(
@@ -168,11 +165,11 @@ def submit_model(doc, args, browser):
         time.sleep(10)
 
         browser.save_screenshot(screenshot)
+        post_slack(doc, "{} : {}".format(args.target, model), screenshot)
     except Exception as ex:
         print("Error", ex)
-        # post_slack(doc, "{} : {}".format(args.target, ex))
-
-    post_slack(doc, "{} : {}".format(args.target, model), screenshot)
+        browser.save_screenshot(screenshot)
+        post_slack(doc, "{} : {}".format(args.target, ex), screenshot)
 
 
 def post_slack(doc, text, screenshot=""):
