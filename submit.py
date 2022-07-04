@@ -133,17 +133,22 @@ def submit_model(doc, args, browser):
 
         try:
             browser.find_element(By.XPATH, "//body").click()
+            time.sleep(1)
         except Exception as ex:
             print("Error", ex)
 
         # awsui_button-trigger_18eso_5wauj_97 awsui_has-caret_18eso_5wauj_135
-        browser.find_element(By.CSS_SELECTOR, "button[class^='awsui_button-trigger']").click()
+        browser.find_element(
+            By.CSS_SELECTOR, "button[class^='awsui_button-trigger']"
+        ).click()
 
         path = '//*[@title="{}"]'.format(model)
         browser.find_element(By.XPATH, path).click()
 
         # awsui_button_vjswe_1asap_101 awsui_variant-primary_vjswe_1asap_206
-        browser.find_element(By.CSS_SELECTOR, "button[class*='awsui_variant-primary']").click()
+        browser.find_element(
+            By.CSS_SELECTOR, "button[class*='awsui_variant-primary']"
+        ).click()
 
         time.sleep(10)
 
