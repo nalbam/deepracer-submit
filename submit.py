@@ -131,6 +131,7 @@ def submit_model(doc, args, browser):
         time.sleep(5)
 
         try:
+            browser.find_element(By.XPATH, "//html").click()
             browser.find_element(By.XPATH, "//body").click()
 
             # # awsui_dismiss-control_1d2i7_1qdlw_312 awsui_button_vjswe_1asap_101 awsui_variant-modal-dismiss_vjswe_1asap_162
