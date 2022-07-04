@@ -185,9 +185,9 @@ def post_slack(doc, text, screenshot=""):
         slack = Slacker(token)
 
         if screenshot == "":
-            slack.chat.post_message(channels=channel, title=text)
+            slack.chat.post_message(channels=[channel], title=text)
         else:
-            slack.files.upload(screenshot, channels=channel, title=text)
+            slack.files.upload(screenshot, channels=[channel], title=text)
 
     except KeyError as ex:
         print("Environment variable %s not set." % str(ex))
