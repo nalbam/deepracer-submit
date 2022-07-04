@@ -145,6 +145,7 @@ def submit_model(doc, args, browser):
             # ).click()
         except Exception as ex:
             print("Error", ex)
+            post_slack(doc, "{} : {}".format(args.target, ex))
 
         # awsui_button-trigger_18eso_5wauj_97 awsui_has-caret_18eso_5wauj_135
         browser.find_element(
@@ -163,24 +164,30 @@ def submit_model(doc, args, browser):
 
         browser.save_screenshot(screenshot)
     except Exception as ex:
-        model = ex
         print("Error", ex)
+        post_slack(doc, "{} : {}".format(args.target, ex))
 
     post_slack(doc, "{} : {}".format(args.target, model), screenshot)
 
 
-def post_slack(doc, text, screenshot):
+def post_slack(doc, text, screenshot=""):
     if doc["slack"]["token"] == "":
         return
 
-    print("+ post_slack", doc["slack"]["channel"])
+    token = doc["slack"]["token"]
+    channel = doc["slack"]["channel"]
+
+    print("+ post_slack", channel)
 
     # filepath = "{}/{}".format(os.path.dirname(os.path.realpath(__file__)), screenshot)
 
     try:
-        slack = Slacker(doc["slack"]["token"])
+        slack = Slacker(token)
 
-        slack.files.upload(screenshot, channels=[doc["slack"]["channel"]], title=text)
+        if screenshot == "":
+            slack.chat.post_message(channels=channel, title=text)
+        else:
+            slack.files.upload(screenshot, channels=channel, title=text)
 
     except KeyError as ex:
         print("Environment variable %s not set." % str(ex))
