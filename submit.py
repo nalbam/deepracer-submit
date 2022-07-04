@@ -132,8 +132,17 @@ def submit_model(doc, args, browser):
         browser.save_screenshot(screenshot)
 
         try:
-            browser.find_element(By.XPATH, "//body").click()
-            time.sleep(1)
+            # browser.find_element(By.XPATH, "//body").click()
+
+            # awsui_dismiss-control_1d2i7_1qdlw_312 awsui_button_vjswe_1asap_101 awsui_variant-modal-dismiss_vjswe_1asap_162
+            browser.find_element(
+                By.CSS_SELECTOR, "button[class*='awsui_dismiss-control']"
+            ).click()
+
+            # # awsui_button_vjswe_1asap_101 awsui_variant-primary_vjswe_1asap_206
+            # browser.find_element(
+            #     By.CSS_SELECTOR, "button[class*='awsui_variant-primary']"
+            # ).click()
         except Exception as ex:
             print("Error", ex)
 
