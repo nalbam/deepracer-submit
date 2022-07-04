@@ -133,7 +133,7 @@ def submit_model(doc, args, browser):
         browser.save_screenshot(screenshot)
 
         try:
-            browser.find_element(By.XPATH, "//body").click()
+            # browser.find_element(By.XPATH, "//body").click()
 
             # awsui_dismiss-control_1d2i7_1qdlw_312 awsui_button_vjswe_1asap_101 awsui_variant-modal-dismiss_vjswe_1asap_162
             browser.find_element(
