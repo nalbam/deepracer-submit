@@ -133,19 +133,12 @@ def submit_model(doc, args, browser):
         try:
             browser.find_element(By.XPATH, "//body").click()
 
-            # globalNav-search-0419 globalNav-search-0425
-            browser.find_element(
-                By.CSS_SELECTOR, "input[class*='globalNav-search']"
-            ).click()
+            # PLCHLDR__new_car_reward_modal
+            browser.find_element(By.XPATH, '//div[@id="PLCHLDR__new_car_reward_modal"]').click()
 
             # # awsui_dismiss-control_1d2i7_1qdlw_312 awsui_button_vjswe_1asap_101 awsui_variant-modal-dismiss_vjswe_1asap_162
             # browser.find_element(
             #     By.CSS_SELECTOR, "button[class*='awsui_variant-modal']"
-            # ).click()
-
-            # # awsui_button_vjswe_1asap_101 awsui_variant-primary_vjswe_1asap_206
-            # browser.find_element(
-            #     By.CSS_SELECTOR, "button[class*='awsui_variant-primary']"
             # ).click()
         except Exception as ex:
             print("Error", ex)
