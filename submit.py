@@ -146,7 +146,7 @@ def submit_model(doc, args, browser):
             # ).click()
         except Exception as ex:
             print("Error", ex)
-            post_slack(doc, "{} : {}".format(args.target, ex))
+            # post_slack(doc, "{} : {}".format(args.target, ex))
 
         # awsui_button-trigger_18eso_5wauj_97 awsui_has-caret_18eso_5wauj_135
         browser.find_element(
@@ -166,7 +166,7 @@ def submit_model(doc, args, browser):
         browser.save_screenshot(screenshot)
     except Exception as ex:
         print("Error", ex)
-        post_slack(doc, "{} : {}".format(args.target, ex))
+        # post_slack(doc, "{} : {}".format(args.target, ex))
 
     post_slack(doc, "{} : {}".format(args.target, model), screenshot)
 
