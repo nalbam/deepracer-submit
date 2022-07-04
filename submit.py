@@ -131,12 +131,12 @@ def submit_model(doc, args, browser):
         time.sleep(5)
 
         try:
-            # browser.find_element(By.XPATH, "//body").click()
+            browser.find_element(By.XPATH, "//body").click()
 
-            # awsui_dismiss-control_1d2i7_1qdlw_312 awsui_button_vjswe_1asap_101 awsui_variant-modal-dismiss_vjswe_1asap_162
-            browser.find_element(
-                By.CSS_SELECTOR, "button[class*='awsui_dismiss-control']"
-            ).click()
+            # # awsui_dismiss-control_1d2i7_1qdlw_312 awsui_button_vjswe_1asap_101 awsui_variant-modal-dismiss_vjswe_1asap_162
+            # browser.find_element(
+            #     By.CSS_SELECTOR, "button[class*='awsui_dismiss-control']"
+            # ).click()
 
             # # awsui_button_vjswe_1asap_101 awsui_variant-primary_vjswe_1asap_206
             # browser.find_element(
@@ -191,17 +191,7 @@ def post_slack(doc, text, screenshot=""):
         else:
             client.files_upload(channels=channel, file=screenshot, text=text)
     except SlackApiError as e:
-        print(f"Got an error: {e.response['error']}")
-
-    # try:
-    #     slack = Slacker(token)
-
-    #     if screenshot == "":
-    #         slack.chat.post_message(channel, text)
-    #     else:
-    #         slack.files.upload(screenshot, channels=[channel], title=text)
-    # except KeyError as ex:
-    #     print("Environment variable %s not set." % str(ex))
+        print("Error", e.response["error"])
 
 
 def main():
