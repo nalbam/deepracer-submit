@@ -12,7 +12,7 @@ sudo apt install -y chromium-chromedriver
 pip3 install pytest
 pip3 install selenium
 pip3 install xvfbwrapper
-pip3 install slacker
+pip3 install slack_sdk
 ```
 
 ## install (Amazon Linux 2)
@@ -29,7 +29,7 @@ sudo yum install -y chromium chromedriver
 sudo pip3 install pytest
 sudo pip3 install selenium
 sudo pip3 install xvfbwrapper
-sudo pip3 install slacker
+sudo pip3 install slack_sdk
 ```
 
 ## config

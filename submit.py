@@ -10,7 +10,8 @@ import random
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from slacker import Slacker
+from slack_sdk import WebClient
+from slack_sdk.errors import SlackApiError
 
 
 def parse_args():
@@ -181,16 +182,25 @@ def post_slack(doc, text, screenshot=""):
 
     # filepath = "{}/{}".format(os.path.dirname(os.path.realpath(__file__)), screenshot)
 
+    client = WebClient(token)
+
     try:
-        slack = Slacker(token)
-
         if screenshot == "":
-            slack.chat.post_message(channels=[channel], title=text)
+            client.chat_postMessage(channel=channel, text=text)
         else:
-            slack.files.upload(screenshot, channels=[channel], title=text)
+            client.files_upload(channels=channel, file=screenshot, text=text)
+    except SlackApiError as e:
+        print(f"Got an error: {e.response['error']}")
 
-    except KeyError as ex:
-        print("Environment variable %s not set." % str(ex))
+    # try:
+    #     slack = Slacker(token)
+
+    #     if screenshot == "":
+    #         slack.chat.post_message(channel, text)
+    #     else:
+    #         slack.files.upload(screenshot, channels=[channel], title=text)
+    # except KeyError as ex:
+    #     print("Environment variable %s not set." % str(ex))
 
 
 def main():
