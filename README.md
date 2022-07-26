@@ -9,10 +9,7 @@ sudo apt install -y chromium-browser
 sudo apt install -y chromium-codecs-ffmpeg
 sudo apt install -y chromium-chromedriver
 
-pip3 install pytest
-pip3 install selenium
-pip3 install xvfbwrapper
-pip3 install slack_sdk
+pip install --upgrade -r requirements.txt
 ```
 
 ## install (Amazon Linux 2)
@@ -26,10 +23,7 @@ sudo amazon-linux-extras install -y epel
 sudo yum install -y git jq
 sudo yum install -y chromium chromedriver
 
-sudo pip3 install pytest
-sudo pip3 install selenium
-sudo pip3 install xvfbwrapper
-sudo pip3 install slack_sdk
+sudo pip3 install --upgrade -r requirements.txt
 ```
 
 ## config
