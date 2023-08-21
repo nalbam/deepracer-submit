@@ -38,21 +38,21 @@ vi config/deepracer.json
   "username": "username",
   "password": "password",
   "slack": {
-    "token": "",
-    "channel": "#sandbox"
+    "token": "xoxb-xxx-xxx-xxx",
+    "channel": "sandbox"
   },
   "races": [
     {
-      "name": "open",
-      "arn": "league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F1d5f46b1-a051-40fc-8716-aabd39e51d1e",
+      "name": "pro",
+      "arn": "league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F9f6ca6de-ecfa-467a-a7d9-c899a811a206",
       "models": [
         "my-model-01",
         "my-model-02"
       ]
     },
     {
-      "name": "pro",
-      "arn": "league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F9f6ca6de-ecfa-467a-a7d9-c899a811a206",
+      "name": "comm",
+      "arn": "competition/arn%3Aaws%3Adeepracer%3A%3A968005369378%3Aleaderboard%2F290c3134-d259-4b13-a390-c899a811a206",
       "models": [
         "my-model-01",
         "my-model-02"
