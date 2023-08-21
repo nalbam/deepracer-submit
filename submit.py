@@ -148,7 +148,7 @@ def submit_model(doc, args, browser):
         except Exception as ex:
             print("Error", ex)
             browser.save_screenshot(screenshot)
-            post_slack(doc, "{} : {}".format(args.target, ex), screenshot)
+            post_slack(doc, "{} - {}".format(args.target, ex), screenshot)
 
         time.sleep(3)
 
@@ -168,11 +168,12 @@ def submit_model(doc, args, browser):
         time.sleep(10)
 
         browser.save_screenshot(screenshot)
-        post_slack(doc, "{} : {}".format(args.target, model), screenshot)
+        post_slack(doc, "{} - {}".format(args.target, model), screenshot)
+
     except Exception as ex:
         print("Error", ex)
         browser.save_screenshot(screenshot)
-        post_slack(doc, "{} : {}".format(args.target, ex), screenshot)
+        post_slack(doc, "{} - {}".format(args.target, ex), screenshot)
 
 
 def post_slack(doc, text, screenshot=""):
