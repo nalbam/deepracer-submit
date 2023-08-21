@@ -192,7 +192,7 @@ def post_slack(doc, text, screenshot=""):
         if screenshot == "":
             client.chat_postMessage(channel=channel, text=text)
         else:
-            client.files_upload(channels=channel, file=screenshot, text=text)
+            client.files_upload_v2(channels=channel, file=screenshot, text=text)
     except SlackApiError as e:
         print("Error", e.response["error"])
 
