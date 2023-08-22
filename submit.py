@@ -128,10 +128,10 @@ def submit_model(doc, args, browser):
         print("url: ", url)
         return
 
+    # post_slack(doc, "{} - {}".format(args.target, model))
+
     try:
         browser.get(url)
-
-        post_slack(doc, "{} - {}".format(args.target, model))
 
         time.sleep(5)
 
