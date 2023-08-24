@@ -128,7 +128,7 @@ def submit_model(doc, args, browser):
         print("url: ", url)
         return
 
-    # post_slack(doc, "submit {} - {}".format(args.target, model))
+    post_slack(doc, "submit {} - {}".format(args.target, model))
 
     try:
         browser.get(url)
