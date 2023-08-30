@@ -2,3 +2,4 @@ pytest
 selenium
 xvfbwrapper
 slack_sdk
+pyotp

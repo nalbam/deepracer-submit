@@ -6,6 +6,7 @@ import os
 import time
 import json
 import random
+import pyotp
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -79,6 +80,13 @@ def login_aws(doc, args, browser):
     browser.find_element(By.ID, "signin_button").click()
 
     time.sleep(5)
+
+    if doc["mfa"] != "":
+        totp = pyotp.TOTP(doc["mfa"])
+        browser.find_element(By.ID, "mfacode").send_keys(totp.now())
+        browser.find_element(By.ID, "submitMfa_button").click()
+
+        time.sleep(5)
 
     # browser.save_screenshot(screenshot)
 

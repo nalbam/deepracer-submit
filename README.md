@@ -9,7 +9,7 @@ sudo apt install -y chromium-browser
 sudo apt install -y chromium-codecs-ffmpeg
 sudo apt install -y chromium-chromedriver
 
-pip install --upgrade -r requirements.txt
+pip3 install --upgrade -r requirements.txt
 ```
 
 ## install (Amazon Linux 2)
@@ -34,9 +34,10 @@ vi config/deepracer.json
 
 ```json
 {
-  "userno": "",
+  "userno": "123456789012",
   "username": "username",
   "password": "password",
+  "mfa": "base32secret3232",
   "slack": {
     "token": "xoxb-xxx-xxx-xxx",
     "channel": "sandbox"
