@@ -29,50 +29,60 @@ sudo pip3 install --upgrade -r requirements.txt
 ## config
 
 ```bash
-vi config/deepracer.json
-```
+export ACCOUNT_ID='123456789012'
 
-```json
+export DR_USERNAME='username'
+export DR_PASSWORD='password'
+export MFA_SECRET='' # BASE32_MFA_SECRET
+
+export SLACK_TOKEN='xoxb-xxx-xxx-xxx'
+export SLACK_CHANNEL='sandbox'
+
+cat <<EOF > config/deepracer.json
 {
-  "userno": "123456789012",
-  "username": "username",
-  "password": "password",
-  "mfa": "base32secret3232",
+  "userno": "${ACCOUNT_ID}",
+  "username": "${DR_USERNAME}",
+  "password": "${DR_PASSWORD}",
+  "mfa": "${MFA_SECRET}",
   "slack": {
-    "token": "xoxb-xxx-xxx-xxx",
-    "channel": "sandbox"
+    "token": "${SLACK_TOKEN}",
+    "channel": "${SLACK_CHANNEL}"
   },
   "races": [
     {
       "name": "pro",
-      "arn": "league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F9f6ca6de-ecfa-467a-a7d9-c899a811a206",
+      "arn": "league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F689a6905-08c6-4589-b609-c54eca7ffd9e",
       "models": [
-        "my-model-01",
-        "my-model-02"
+        "DR-MODEL-01", "DR-MODEL-02"
       ]
     },
     {
       "name": "comm",
-      "arn": "competition/arn%3Aaws%3Adeepracer%3A%3A968005369378%3Aleaderboard%2F290c3134-d259-4b13-a390-c899a811a206",
+      "arn": "competition/arn%3Aaws%3Adeepracer%3A%3A968005369378%3Aleaderboard%2F4fce8098-0a1f-4730-9fae-58c26397c043",
       "models": [
-        "my-model-01",
-        "my-model-02"
+        "DR-MODEL-01", "DR-MODEL-02"
       ]
     }
   ]
 }
+EOF
 ```
 
 ## submit
 
 ```bash
-./submit.py -t open -d True
+./submit.py -t pro -d True
 ```
 
 ## crontab
 
 ```bash
-10,20,30,40,50 * * * * /home/ec2-user/deepracer-submit/submit.py -t pro > /tmp/submit.log 2>&1
+cat <<EOF > config/crontab.sh
+*/15 * * * * /home/ec2-user/deepracer-submit/submit.py -t pro > /tmp/submit-pro.log 2>&1
+59 * * * * bash /home/ec2-user/run.sh restore
+EOF
+
+crontab config/crontab.sh
 ```
 
 ## slack
