@@ -81,7 +81,7 @@ def login_aws(doc, args, browser):
 
     time.sleep(5)
 
-    if doc["mfa"] != "":
+    if doc["mfa"] != "" and doc["mfa"] != "NONE":
         totp = pyotp.TOTP(doc["mfa"])
         browser.find_element(By.ID, "mfacode").send_keys(totp.now())
         browser.find_element(By.ID, "submitMfa_button").click()
