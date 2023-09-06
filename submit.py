@@ -146,11 +146,12 @@ def submit_model(doc, args, browser):
 
         # awsui_button_vjswe_1wkd9_101 awsui_variant-normal_vjswe_1wkd9_126
         browser_element_click(browser, "button[class*='awsui_variant-normal']")
-        browser_element_click(browser, "button[class*='awsui_variant-normal']")
-        browser_element_click(browser, "button[class*='awsui_variant-normal']")
+
+        time.sleep(1)
 
         # awsui_dismiss-button_1q84n_2xbxi_110 awsui_variant-flashbar-icon_vjswe_r2ttg_166
         browser_element_click(browser, "button[class^='awsui_variant-flashbar-icon']")
+
         time.sleep(1)
 
         # awsui_button-trigger_18eso_5wauj_97 awsui_has-caret_18eso_5wauj_135
