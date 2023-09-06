@@ -146,25 +146,21 @@ def submit_model(doc, args, browser):
         try:
             browser.find_element(By.XPATH, "//body").click()
 
-            # # PLCHLDR__new_car_reward_modal
-            # browser.find_element(
-            #     By.XPATH, '//div[@id="PLCHLDR__new_car_reward_modal"]'
-            # ).click()
+            # awsui_dismiss-button_1q84n_2xbxi_110 awsui_variant-flashbar-icon_vjswe_r2ttg_166
+            browser.find_element(
+                By.CSS_SELECTOR, "button[class^='awsui_dismiss-button']"
+            ).click()
 
-            # # awsui_dismiss-control_1d2i7_1qdlw_312 awsui_button_vjswe_1asap_101 awsui_variant-modal-dismiss_vjswe_1asap_162
-            # browser.find_element(
-            #     By.CSS_SELECTOR, "button[class*='awsui_variant-modal']"
-            # ).click()
         except Exception as ex:
             print("Error", ex)
-            browser.save_screenshot(screenshot)
-            post_slack(doc, "submit {} - {}".format(args.target, ex), screenshot)
+            # browser.save_screenshot(screenshot)
+            # post_slack(doc, "submit {} - {}".format(args.target, ex), screenshot)
 
         time.sleep(3)
 
         # awsui_button-trigger_18eso_5wauj_97 awsui_has-caret_18eso_5wauj_135
         browser.find_element(
-            By.CSS_SELECTOR, "button[class^='awsui_button-trigger']"
+            By.CSS_SELECTOR, "button[class*='awsui_has-caret']"
         ).click()
 
         path = '//*[@title="{}"]'.format(model)
