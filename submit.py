@@ -145,16 +145,24 @@ def submit_model(doc, args, browser):
 
         try:
             browser.find_element(By.XPATH, "//body").click()
-
-            # awsui_dismiss-button_1q84n_2xbxi_110 awsui_variant-flashbar-icon_vjswe_r2ttg_166
-            browser.find_element(
-                By.CSS_SELECTOR, "button[class^='awsui_dismiss-button']"
-            ).click()
-
         except Exception as ex:
             print("Error", ex)
-            # browser.save_screenshot(screenshot)
-            # post_slack(doc, "submit {} - {}".format(args.target, ex), screenshot)
+
+        try:
+            # awsui_button_vjswe_1wkd9_101 awsui_variant-normal_vjswe_1wkd9_126
+            browser.find_element(
+                By.CSS_SELECTOR, "button[class*='awsui_variant-normal']"
+            ).click()
+        except Exception as ex:
+            print("Error", ex)
+
+        try:
+            # awsui_dismiss-button_1q84n_2xbxi_110 awsui_variant-flashbar-icon_vjswe_r2ttg_166
+            browser.find_element(
+                By.CSS_SELECTOR, "button[class^='awsui_variant-flashbar-icon']"
+            ).click()
+        except Exception as ex:
+            print("Error", ex)
 
         time.sleep(3)
 
