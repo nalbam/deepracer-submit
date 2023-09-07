@@ -137,32 +137,21 @@ def submit_model(doc, args, browser):
 
         time.sleep(5)
 
-        try:
-            browser.find_element(By.XPATH, "//body").click()
-        except Exception as ex:
-            print("Error", ex)
-
-        time.sleep(1)
-
-        # # awsui_button_vjswe_1wkd9_101 awsui_variant-normal_vjswe_1wkd9_126
-        # browser_element_click(browser, "button[class*='awsui_variant-normal']")
-
-        # time.sleep(1)
+        click_element_xpath(browser, "//body")
 
         # awsui_dismiss-button_1q84n_2xbxi_110 awsui_variant-flashbar-icon_vjswe_r2ttg_166
-        browser_element_click(browser, "button[class^='awsui_dismiss-button']")
+        click_element_css(browser, "button[class^='awsui_dismiss-button']")
 
         time.sleep(1)
 
         # awsui_button-trigger_18eso_5wauj_97 awsui_has-caret_18eso_5wauj_135
-        browser_element_click(browser, "button[class^='awsui_button-trigger']")
+        click_element_css(browser, "button[class^='awsui_button-trigger']")
 
         # select model
-        path = '//*[@title="{}"]'.format(model)
-        browser.find_element(By.XPATH, path).click()
+        click_element_xpath(browser, '//*[@title="{}"]'.format(model))
 
         # awsui_button_vjswe_1asap_101 awsui_variant-primary_vjswe_1asap_206
-        browser_element_click(browser, "button[class*='awsui_variant-primary']")
+        click_element_css(browser, "button[class*='awsui_variant-primary']")
 
         time.sleep(10)
 
@@ -175,7 +164,14 @@ def submit_model(doc, args, browser):
         post_slack(doc, "submit {} - {}".format(args.target, ex), screenshot)
 
 
-def browser_element_click(browser, selector):
+def click_element_xpath(browser, selector):
+    try:
+        browser.find_element(By.XPATH, selector).click()
+    except Exception as ex:
+        print("Error", ex)
+
+
+def click_element_css(browser, selector):
     try:
         browser.find_element(By.CSS_SELECTOR, selector).click()
     except Exception as ex:
