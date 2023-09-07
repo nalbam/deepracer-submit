@@ -149,10 +149,10 @@ def submit_model(doc, args, browser):
 
         # time.sleep(1)
 
-        # # awsui_dismiss-button_1q84n_2xbxi_110 awsui_variant-flashbar-icon_vjswe_r2ttg_166
-        # browser_element_click(browser, "button[class^='awsui_variant-flashbar-icon']")
+        # awsui_dismiss-button_1q84n_2xbxi_110 awsui_variant-flashbar-icon_vjswe_r2ttg_166
+        browser_element_click(browser, "button[class^='awsui_dismiss-button']")
 
-        # time.sleep(1)
+        time.sleep(1)
 
         # awsui_button-trigger_18eso_5wauj_97 awsui_has-caret_18eso_5wauj_135
         browser_element_click(browser, "button[class^='awsui_button-trigger']")
