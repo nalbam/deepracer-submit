@@ -155,7 +155,7 @@ def submit_model(doc, args, browser):
         # time.sleep(1)
 
         # awsui_button-trigger_18eso_5wauj_97 awsui_has-caret_18eso_5wauj_135
-        browser_element_click(browser, "button[class*='awsui_has-caret']")
+        browser_element_click(browser, "button[class^='awsui_button-trigger']")
 
         # select model
         path = '//*[@title="{}"]'.format(model)
