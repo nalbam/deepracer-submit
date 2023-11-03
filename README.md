@@ -23,7 +23,7 @@ sudo amazon-linux-extras install -y epel
 sudo yum install -y git jq
 sudo yum install -y chromium chromedriver
 
-sudo pip3 install --upgrade -r requirements.txt
+pip3 install --upgrade -r requirements.txt
 ```
 
 ## config
@@ -37,7 +37,9 @@ export MFA_SECRET='' # BASE32_MFA_SECRET
 
 export SLACK_TOKEN='xoxb-xxx-xxx-xxx'
 export SLACK_CHANNEL='sandbox'
+```
 
+```bash
 cat <<EOF > config/deepracer.json
 {
   "userno": "${ACCOUNT_ID}",
@@ -81,7 +83,9 @@ cat <<EOF > config/crontab.sh
 */15 * * * * /home/ec2-user/deepracer-submit/submit.py -t pro > /tmp/submit-pro.log 2>&1
 59 * * * * bash /home/ec2-user/run.sh restore
 EOF
+```
 
+```bash
 crontab config/crontab.sh
 ```
 
