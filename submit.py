@@ -145,7 +145,7 @@ def submit_model(doc, args, browser):
         time.sleep(1)
 
         # show select model
-        click_element_css(browser, "button[class^='awsui_has-caret']")
+        click_element_css(browser, "button[class^='awsui_button-trigger_18eso']")
 
         # # select model
         # click_element_xpath(browser, '//*[@title="{}"]'.format(model))
