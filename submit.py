@@ -145,14 +145,12 @@ def submit_model(doc, args, browser):
         time.sleep(1)
 
         # show select model
-        # awsui_button-trigger_18eso_1wwwd_103 awsui_has-caret_18eso_1wwwd_170
-        click_element_css(browser, "button[class*='awsui_has-caret']")
+        click_element_css(browser, "button[class*='awsui_variant-normal']")
 
         # # select model
         # click_element_xpath(browser, '//*[@title="{}"]'.format(model))
 
         # # submit
-        # # awsui_button_vjswe_2od9j_107 awsui_variant-primary_vjswe_2od9j_251
         # click_element_css(browser, "button[class*='awsui_variant-primary']")
 
         time.sleep(10)
