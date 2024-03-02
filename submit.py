@@ -139,19 +139,21 @@ def submit_model(doc, args, browser):
 
         click_element_xpath(browser, "//body")
 
-        # awsui_dismiss-button_1q84n_2xbxi_110 awsui_variant-flashbar-icon_vjswe_r2ttg_166
-        click_element_css(browser, "button[class^='awsui_dismiss-button']")
+        # # dismiss popup
+        # click_element_css(browser, "button[class^='awsui_dismiss-button']")
 
         time.sleep(1)
 
-        # awsui_button-trigger_18eso_5wauj_97 awsui_has-caret_18eso_5wauj_135
-        click_element_css(browser, "button[class^='awsui_button-trigger']")
+        # show select model
+        # awsui_button-trigger_18eso_1wwwd_103 awsui_has-caret_18eso_1wwwd_170
+        click_element_css(browser, "button[class^='awsui_has-caret']")
 
         # select model
         click_element_xpath(browser, '//*[@title="{}"]'.format(model))
 
-        # awsui_button_vjswe_1asap_101 awsui_variant-primary_vjswe_1asap_206
-        click_element_css(browser, "button[class*='awsui_variant-primary']")
+        # submit
+        # awsui_button_vjswe_2od9j_107 awsui_variant-primary_vjswe_2od9j_251
+        click_element_css(browser, "button[class^='awsui_variant-primary']")
 
         time.sleep(10)
 
@@ -174,6 +176,13 @@ def click_element_xpath(browser, selector):
 def click_element_css(browser, selector):
     try:
         browser.find_element(By.CSS_SELECTOR, selector).click()
+    except Exception as ex:
+        print("Error", ex)
+
+
+def insert_element_css(browser, selector, value):
+    try:
+        browser.find_element(By.CSS_SELECTOR, selector).send_keys(value)
     except Exception as ex:
         print("Error", ex)
 
