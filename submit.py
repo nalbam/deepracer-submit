@@ -154,7 +154,7 @@ def submit_model(doc, args, browser):
         # show models
         print("click", "show models")
         # awsui_button-trigger_18eso_1wwwd_103 awsui_has-caret_18eso_1wwwd_170
-        click_element_css(browser, "button[class*='awsui_has-caret']")
+        click_element_css(browser, "button[class*='awsui_button-trigger']")
 
         time.sleep(1)
 
