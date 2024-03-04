@@ -164,12 +164,12 @@ def submit_model(doc, args, browser):
 
         time.sleep(1)
 
-        # # submit
-        # print("click", "submit")
-        # # awsui_button_vjswe_2od9j_107 awsui_variant-primary_vjswe_2od9j_251
-        # click_element_css(browser, "button[class*='awsui_variant-primary']")
+        # submit
+        print("click", "submit")
+        # awsui_button_vjswe_2od9j_107 awsui_variant-primary_vjswe_2od9j_251
+        click_element_css(browser, "button[class*='awsui_variant-primary']")
 
-        # time.sleep(10)
+        time.sleep(10)
 
         browser.save_screenshot(screenshot)
         post_slack(doc, "submit {} - {}".format(args.target, model), screenshot)
