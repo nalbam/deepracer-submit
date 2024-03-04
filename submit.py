@@ -154,7 +154,7 @@ def submit_model(doc, args, browser):
         # show models
         print("click", "show models")
         # awsui_button-trigger_18eso_1wwwd_103 awsui_has-caret_18eso_1wwwd_170
-        click_element_css(browser, "button[class*='awsui_has-caret']")
+        click_element_css(browser, "button.awsui_has-caret_18eso_1wwwd_170")
 
         time.sleep(1)
 
@@ -184,7 +184,7 @@ def submit_model(doc, args, browser):
 def click_element_xpath(browser, selector, parent=None):
     try:
         e = browser.find_element(By.XPATH, selector)
-        # print("elements", e.size if e is not None else 0)
+        print("elements", e.size if e is not None else 0)
         if parent is None:
             e.click()
         else:
@@ -196,7 +196,7 @@ def click_element_xpath(browser, selector, parent=None):
 def click_element_css(browser, selector, parent=None):
     try:
         e = browser.find_element(By.CSS_SELECTOR, selector)
-        # print("elements", e.size if e is not None else 0)
+        print("elements", e.size if e is not None else 0)
         if parent is None:
             e.click()
         else:
