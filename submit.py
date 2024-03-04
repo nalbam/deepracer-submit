@@ -137,6 +137,7 @@ def submit_model(doc, args, browser):
 
         time.sleep(5)
 
+        print("click", "//body")
         click_element_xpath(browser, "//body")
 
         # # dismiss popup
@@ -144,14 +145,21 @@ def submit_model(doc, args, browser):
 
         time.sleep(1)
 
-        # show select model
-        click_element_css(browser, "button[class^='awsui_button-trigger_18eso']")
+        # show models
+        print("click", "show models")
+        # awsui_button-trigger_18eso_1wwwd_103 awsui_has-caret_18eso_1wwwd_170
+        # click_element_css(browser, "button[class^='awsui_button-trigger_18eso']")
+        # formField674-1709547848028-4253
+        browser.find_element(By.ID, "formField674-1709547848028-4253").click()
 
-        # # select model
-        # click_element_xpath(browser, '//*[@title="{}"]'.format(model))
+        # select model
+        print("click", "select model")
+        click_element_xpath(browser, '//*[@title="{}"]'.format(model))
 
-        # # submit
-        # click_element_css(browser, "button[class*='awsui_variant-primary']")
+        # submit
+        print("click", "submit")
+        click_element_css(browser, "button[class*='awsui_variant-primary']")
+        # browser.find_element(By.ID, "submitMfa_button").click()
 
         time.sleep(10)
 
