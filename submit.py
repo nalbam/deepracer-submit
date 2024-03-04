@@ -188,7 +188,7 @@ def click_element_xpath(browser, selector, parent=None):
         if parent is None:
             e.click()
         else:
-            e[0].find_element(By.XPATH, parent).click()
+            e.find_element(By.XPATH, parent).click()
     except Exception as ex:
         print("Error", ex)
 
@@ -200,7 +200,7 @@ def click_element_css(browser, selector, parent=None):
         if parent is None:
             e.click()
         else:
-            e[0].find_element(By.XPATH, parent).click()
+            e.find_element(By.XPATH, parent).click()
     except Exception as ex:
         print("Error", ex)
 
