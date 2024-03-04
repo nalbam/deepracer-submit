@@ -158,9 +158,9 @@ def submit_model(doc, args, browser):
 
         time.sleep(1)
 
-        # # select model
-        # print("click", "select model")
-        # click_element_xpath(browser, '//*[@title="{}"]'.format(model), "../..")
+        # select model
+        print("click", "select model")
+        click_element_xpath(browser, '//*[@title="{}"]'.format(model), "../..")
 
         time.sleep(1)
 
