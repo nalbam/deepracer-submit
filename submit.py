@@ -156,17 +156,20 @@ def submit_model(doc, args, browser):
         # awsui_button-trigger_18eso_1wwwd_103 awsui_has-caret_18eso_1wwwd_170
         click_element_css(browser, "button[class*='awsui_has-caret']")
 
-        # select model
-        print("click", "select model")
-        click_element_xpath(browser, '//*[@title="{}"]'.format(model), "../..")
+        time.sleep(1)
 
-        # submit
-        print("click", "submit")
-        # awsui_button_vjswe_2od9j_107 awsui_variant-primary_vjswe_2od9j_251
-        click_element_css(browser, "button[class*='awsui_variant-primary']")
-        # browser.find_element(By.ID, "submitMfa_button").click()
+        # # select model
+        # print("click", "select model")
+        # click_element_xpath(browser, '//*[@title="{}"]'.format(model), "../..")
 
-        time.sleep(10)
+        time.sleep(1)
+
+        # # submit
+        # print("click", "submit")
+        # # awsui_button_vjswe_2od9j_107 awsui_variant-primary_vjswe_2od9j_251
+        # click_element_css(browser, "button[class*='awsui_variant-primary']")
+
+        # time.sleep(10)
 
         browser.save_screenshot(screenshot)
         post_slack(doc, "submit {} - {}".format(args.target, model), screenshot)
