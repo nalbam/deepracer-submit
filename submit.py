@@ -33,7 +33,9 @@ def open_browser(args):
     # options.add_argument("--no-sandbox")
     # options.add_argument("--single-process")
     options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("user-agent=Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko")
+    options.add_argument(
+        "user-agent=Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko"
+    )
 
     browser = webdriver.Chrome(options=options)
 
@@ -119,10 +121,14 @@ def submit_model(doc, args, browser):
     # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F55234c74-2c48-466d-9e66-242ddf05e04d/submitModel
     # #competition/arn%3Aaws%3Adeepracer%3A%3A082867736673%3Aleaderboard%2Fe9fbfc93-ed99-494c-8b61-ac13a2274859/submitModel
 
-    url = "https://us-east-1.console.aws.amazon.com/deepracer/home?region=us-east-1#{}/submitModel".format(arn)
+    url = "https://us-east-1.console.aws.amazon.com/deepracer/home?region=us-east-1#{}/submitModel".format(
+        arn
+    )
 
     # screenshot = "config/submit-{}.png".format(args.target)
-    screenshot = "{}/config/submit-{}.png".format(os.path.dirname(os.path.realpath(__file__)), args.target)
+    screenshot = "{}/config/submit-{}.png".format(
+        os.path.dirname(os.path.realpath(__file__)), args.target
+    )
 
     if args.debug == "True":
         print("arn: ", arn)
@@ -148,16 +154,15 @@ def submit_model(doc, args, browser):
         # show models
         print("click", "show models")
         # awsui_button-trigger_18eso_1wwwd_103 awsui_has-caret_18eso_1wwwd_170
-        # click_element_css(browser, "button[class^='awsui_button-trigger_18eso']")
-        # formField674-1709547848028-4253
-        browser.find_element(By.ID, "formField674-1709547848028-4253").click()
+        click_element_css(browser, "button[class*='awsui_has-caret']")
 
         # select model
         print("click", "select model")
-        click_element_xpath(browser, '//*[@title="{}"]'.format(model))
+        click_element_xpath(browser, '//*[@title="{}"]'.format(model), "../..")
 
         # submit
         print("click", "submit")
+        # awsui_button_vjswe_2od9j_107 awsui_variant-primary_vjswe_2od9j_251
         click_element_css(browser, "button[class*='awsui_variant-primary']")
         # browser.find_element(By.ID, "submitMfa_button").click()
 
@@ -173,16 +178,24 @@ def submit_model(doc, args, browser):
         post_slack(doc, "submit {} - {}".format(args.target, ex), screenshot)
 
 
-def click_element_xpath(browser, selector):
+def click_element_xpath(browser, selector, parent=None):
     try:
-        browser.find_element(By.XPATH, selector).click()
+        e = browser.find_element(By.XPATH, selector)
+        if parent is None:
+            e.click()
+        else:
+            e[0].find_element(By.XPATH, parent).click()
     except Exception as ex:
         print("Error", ex)
 
 
-def click_element_css(browser, selector):
+def click_element_css(browser, selector, parent=None):
     try:
-        browser.find_element(By.CSS_SELECTOR, selector).click()
+        e = browser.find_element(By.CSS_SELECTOR, selector)
+        if parent is None:
+            e.click()
+        else:
+            e[0].find_element(By.XPATH, parent).click()
     except Exception as ex:
         print("Error", ex)
 
@@ -223,7 +236,9 @@ def main():
         print("Empty target.")
         return
 
-    filepath = "{}/config/deepracer.json".format(os.path.dirname(os.path.realpath(__file__)))
+    filepath = "{}/config/deepracer.json".format(
+        os.path.dirname(os.path.realpath(__file__))
+    )
 
     if os.path.exists(filepath):
         if args.debug == "True":
