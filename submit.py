@@ -15,6 +15,9 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 
+BASE_URL = "https://us-east-1.console.aws.amazon.com/deepracer/home?region=us-east-1"
+
+
 def parse_args():
     p = argparse.ArgumentParser(description="deepracer submit")
     p.add_argument("-t", "--target", default="", help="target", required=True)
@@ -117,18 +120,10 @@ def submit_model(doc, args, browser):
         print("Empty model.")
         return
 
-    # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F9f6ca6de-ecfa-467a-a7d9-c899a811a206/submitModel
-    # #league/arn%3Aaws%3Adeepracer%3A%3A%3Aleaderboard%2F55234c74-2c48-466d-9e66-242ddf05e04d/submitModel
-    # #competition/arn%3Aaws%3Adeepracer%3A%3A082867736673%3Aleaderboard%2Fe9fbfc93-ed99-494c-8b61-ac13a2274859/submitModel
-
-    url = "https://us-east-1.console.aws.amazon.com/deepracer/home?region=us-east-1#{}/submitModel".format(
-        arn
-    )
+    url = "{}#{}/submitModel".format(BASE_URL, arn)
 
     # screenshot = "config/submit-{}.png".format(args.target)
-    screenshot = "{}/config/submit-{}.png".format(
-        os.path.dirname(os.path.realpath(__file__)), args.target
-    )
+    screenshot = "{}/config/submit-{}.png".format(realpath(), args.target)
 
     if args.debug == "True":
         print("arn: ", arn)
@@ -184,7 +179,7 @@ def submit_model(doc, args, browser):
 def click_element_xpath(browser, selector, parent=None):
     try:
         e = browser.find_element(By.XPATH, selector)
-        print("elements", e.size if e is not None else 0)
+        # print("elements", e.size if e is not None else 0)
         if parent is None:
             e.click()
         else:
@@ -196,7 +191,7 @@ def click_element_xpath(browser, selector, parent=None):
 def click_element_css(browser, selector, parent=None):
     try:
         e = browser.find_element(By.CSS_SELECTOR, selector)
-        print("elements", e.size if e is not None else 0)
+        # print("elements", e.size if e is not None else 0)
         if parent is None:
             e.click()
         else:
@@ -221,8 +216,6 @@ def post_slack(doc, text, screenshot=""):
 
     print("+ post_slack", channel)
 
-    # filepath = "{}/{}".format(os.path.dirname(os.path.realpath(__file__)), screenshot)
-
     client = WebClient(token)
 
     try:
@@ -234,6 +227,10 @@ def post_slack(doc, text, screenshot=""):
         print("Error", e.response["error"])
 
 
+def realpath():
+    return os.path.dirname(os.path.realpath(__file__))
+
+
 def main():
     args = parse_args()
 
@@ -241,9 +238,7 @@ def main():
         print("Empty target.")
         return
 
-    filepath = "{}/config/deepracer.json".format(
-        os.path.dirname(os.path.realpath(__file__))
-    )
+    filepath = "{}/config/deepracer.json".format(realpath())
 
     if os.path.exists(filepath):
         if args.debug == "True":
