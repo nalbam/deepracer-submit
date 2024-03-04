@@ -184,6 +184,7 @@ def submit_model(doc, args, browser):
 def click_element_xpath(browser, selector, parent=None):
     try:
         e = browser.find_element(By.XPATH, selector)
+        print("elements", e.size if e is not None else 0)
         if parent is None:
             e.click()
         else:
@@ -195,6 +196,7 @@ def click_element_xpath(browser, selector, parent=None):
 def click_element_css(browser, selector, parent=None):
     try:
         e = browser.find_element(By.CSS_SELECTOR, selector)
+        print("elements", e.size if e is not None else 0)
         if parent is None:
             e.click()
         else:
