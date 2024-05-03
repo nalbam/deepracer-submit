@@ -37,7 +37,7 @@ def open_browser(args):
     # options.add_argument("--single-process")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument(
-        "user-agent=Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko"
+        "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"
     )
 
     browser = webdriver.Chrome(options=options)
