@@ -68,14 +68,11 @@ def login_aws(doc, args, browser):
         print("url: ", url)
         return
 
-    # screenshot = "config/login-{}.png".format(doc["userno"])
-    # screenshot = "{}/config/login-{}.png".format(os.path.dirname(os.path.realpath(__file__)), doc["userno"])
+    screenshot = "{}/config/login-{}.png".format(realpath(), args.target)
 
     browser.get(url)
 
     time.sleep(5)
-
-    # browser.save_screenshot(screenshot)
 
     browser.find_element(By.ID, "username").send_keys(doc["username"])
     browser.find_element(By.ID, "password").send_keys(doc["password"])
@@ -84,6 +81,9 @@ def login_aws(doc, args, browser):
 
     time.sleep(5)
 
+    # browser.save_screenshot(screenshot)
+    # post_slack(doc, "login {} - {}".format(args.target, doc["username"]), screenshot)
+
     if doc["mfa"] != "" and doc["mfa"] != "NONE":
         totp = pyotp.TOTP(doc["mfa"])
         browser.find_element(By.ID, "mfacode").send_keys(totp.now())
@@ -91,7 +91,8 @@ def login_aws(doc, args, browser):
 
         time.sleep(5)
 
-    # browser.save_screenshot(screenshot)
+    browser.save_screenshot(screenshot)
+    post_slack(doc, "login {} - {}".format(args.target, doc["username"]), screenshot)
 
 
 def submit_model(doc, args, browser):
@@ -122,7 +123,6 @@ def submit_model(doc, args, browser):
 
     url = "{}#{}/submitModel".format(BASE_URL, arn)
 
-    # screenshot = "config/submit-{}.png".format(args.target)
     screenshot = "{}/config/submit-{}.png".format(realpath(), args.target)
 
     if args.debug == "True":
