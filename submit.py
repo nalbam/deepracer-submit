@@ -80,16 +80,21 @@ def login_aws(doc, args, browser):
     browser.find_element(By.ID, "username").send_keys(doc["username"])
     browser.find_element(By.ID, "password").send_keys(doc["password"])
 
+    browser.save_screenshot(screenshot)
+    post_slack(doc, "login {} - {}".format(args.target, doc["username"]), screenshot)
+
     browser.find_element(By.ID, "signin_button").click()
 
     time.sleep(5)
 
-    # browser.save_screenshot(screenshot)
-    # post_slack(doc, "login {} - {}".format(args.target, doc["username"]), screenshot)
-
     if doc["mfa"] != "" and doc["mfa"] != "NONE":
         totp = pyotp.TOTP(doc["mfa"])
+
         browser.find_element(By.ID, "mfacode").send_keys(totp.now())
+
+        # browser.save_screenshot(screenshot)
+        # post_slack(doc, "login {} - {}".format(args.target, doc["username"]), screenshot)
+
         browser.find_element(By.ID, "submitMfa_button").click()
 
         time.sleep(5)
