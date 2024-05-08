@@ -77,6 +77,10 @@ def login_aws(doc, args, browser):
 
         time.sleep(5)
 
+        if doc["debug"] == "True":
+            browser.save_screenshot(screenshot)
+            post_slack(doc, message, screenshot)
+
         browser.find_element(By.ID, "account").send_keys(doc["userno"])
 
         browser.find_element(By.ID, "username").send_keys(doc["username"])
