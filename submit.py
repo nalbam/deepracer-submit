@@ -63,7 +63,7 @@ def login_aws(doc, args, browser):
     print("+ login_aws", doc["username"])
 
     # url = "https://{}.signin.aws.amazon.com/console".format(doc["userno"])
-    url = BASE_URL
+    url = "https://console.aws.amazon.com/console/home?region=us-east-1"
 
     if args.debug == "True":
         print("url: ", url)
@@ -77,11 +77,20 @@ def login_aws(doc, args, browser):
 
         time.sleep(5)
 
+        browser.find_element(By.ID, "aws-signin-general-user-selection-iam").click()
+        browser.find_element(By.ID, "iam_user_radio_button").click()
+
+        browser.find_element(By.ID, "resolving_input").send_keys(doc["userno"])
+
         if doc["debug"] == "True":
             browser.save_screenshot(screenshot)
             post_slack(doc, message, screenshot)
 
-        browser.find_element(By.ID, "account").send_keys(doc["userno"])
+        browser.find_element(By.ID, "signin_button").click()
+
+        time.sleep(5)
+
+        # browser.find_element(By.ID, "account").send_keys(doc["userno"])
 
         browser.find_element(By.ID, "username").send_keys(doc["username"])
         browser.find_element(By.ID, "password").send_keys(doc["password"])
