@@ -42,6 +42,7 @@ export SLACK_CHANNEL='sandbox'
 ```bash
 cat <<EOF > config/deepracer.json
 {
+  "debug": "False",
   "userno": "${ACCOUNT_ID}",
   "username": "${DR_USERNAME}",
   "password": "${DR_PASSWORD}",
@@ -91,4 +92,4 @@ crontab config/crontab.sh
 
 ## slack
 
-![submit](./images/submit-tt.png)
+![submit](./images/submit-pro.png)

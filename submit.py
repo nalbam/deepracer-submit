@@ -69,6 +69,7 @@ def login_aws(doc, args, browser):
         print("url: ", url)
         return
 
+    message = "login {} - {}".format(args.target, doc["username"])
     screenshot = "{}/config/login-{}.png".format(realpath(), args.target)
 
     browser.get(url)
@@ -80,8 +81,9 @@ def login_aws(doc, args, browser):
     browser.find_element(By.ID, "username").send_keys(doc["username"])
     browser.find_element(By.ID, "password").send_keys(doc["password"])
 
-    browser.save_screenshot(screenshot)
-    post_slack(doc, "login {} - {}".format(args.target, doc["username"]), screenshot)
+    if doc["debug"] == "True":
+        browser.save_screenshot(screenshot)
+        post_slack(doc, message, screenshot)
 
     browser.find_element(By.ID, "signin_button").click()
 
@@ -92,15 +94,17 @@ def login_aws(doc, args, browser):
 
         browser.find_element(By.ID, "mfacode").send_keys(totp.now())
 
-        # browser.save_screenshot(screenshot)
-        # post_slack(doc, "login {} - {}".format(args.target, doc["username"]), screenshot)
+        if doc["debug"] == "True":
+            browser.save_screenshot(screenshot)
+            post_slack(doc, message, screenshot)
 
         browser.find_element(By.ID, "submitMfa_button").click()
 
         time.sleep(5)
 
-    browser.save_screenshot(screenshot)
-    post_slack(doc, "login {} - {}".format(args.target, doc["username"]), screenshot)
+    if doc["debug"] == "True":
+        browser.save_screenshot(screenshot)
+        post_slack(doc, message, screenshot)
 
 
 def submit_model(doc, args, browser):
@@ -131,15 +135,16 @@ def submit_model(doc, args, browser):
 
     url = "{}#{}/submitModel".format(BASE_URL, arn)
 
-    screenshot = "{}/config/submit-{}.png".format(realpath(), args.target)
-
     if args.debug == "True":
         print("arn: ", arn)
         print("model: ", model)
         print("url: ", url)
         return
 
-    post_slack(doc, "submit {} - {}".format(args.target, model))
+    message = "submit {} - {}".format(args.target, model)
+    screenshot = "{}/config/submit-{}.png".format(realpath(), args.target)
+
+    post_slack(doc, message)
 
     try:
         browser.get(url)
@@ -175,13 +180,13 @@ def submit_model(doc, args, browser):
         time.sleep(10)
 
         browser.save_screenshot(screenshot)
-        post_slack(doc, "submit {} - {}".format(args.target, model), screenshot)
+        post_slack(doc, message, screenshot)
 
     except Exception as ex:
         print("Error", ex)
 
         browser.save_screenshot(screenshot)
-        post_slack(doc, "submit {} - {}".format(args.target, ex), screenshot)
+        post_slack(doc, message, screenshot)
 
 
 def click_element_xpath(browser, selector, parent=None):
