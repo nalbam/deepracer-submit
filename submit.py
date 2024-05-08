@@ -99,7 +99,7 @@ def login_aws(doc, args, browser):
             browser.save_screenshot(screenshot)
             post_slack(doc, message, screenshot)
 
-        browser.find_element(By.ID, "signin_button").click()
+        browser.find_element(By.ID, "input_signin_button").click()
 
         time.sleep(5)
 
