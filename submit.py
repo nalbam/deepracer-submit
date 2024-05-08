@@ -62,7 +62,8 @@ def close_browser(browser, args):
 def login_aws(doc, args, browser):
     print("+ login_aws", doc["username"])
 
-    url = "https://{}.signin.aws.amazon.com/console".format(doc["userno"])
+    # url = "https://{}.signin.aws.amazon.com/console".format(doc["userno"])
+    url = BASE_URL
 
     if args.debug == "True":
         print("url: ", url)
@@ -73,6 +74,8 @@ def login_aws(doc, args, browser):
     browser.get(url)
 
     time.sleep(5)
+
+    browser.find_element(By.ID, "account").send_keys(doc["userno"])
 
     browser.find_element(By.ID, "username").send_keys(doc["username"])
     browser.find_element(By.ID, "password").send_keys(doc["password"])
