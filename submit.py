@@ -72,35 +72,39 @@ def login_aws(doc, args, browser):
     message = "login {} - {}".format(args.target, doc["username"])
     screenshot = "{}/config/login-{}.png".format(realpath(), args.target)
 
-    browser.get(url)
+    try:
+        browser.get(url)
 
-    time.sleep(5)
+        time.sleep(5)
 
-    browser.find_element(By.ID, "account").send_keys(doc["userno"])
+        browser.find_element(By.ID, "account").send_keys(doc["userno"])
 
-    browser.find_element(By.ID, "username").send_keys(doc["username"])
-    browser.find_element(By.ID, "password").send_keys(doc["password"])
-
-    if doc["debug"] == "True":
-        browser.save_screenshot(screenshot)
-        post_slack(doc, message, screenshot)
-
-    browser.find_element(By.ID, "signin_button").click()
-
-    time.sleep(5)
-
-    if doc["mfa"] != "" and doc["mfa"] != "NONE":
-        totp = pyotp.TOTP(doc["mfa"])
-
-        browser.find_element(By.ID, "mfacode").send_keys(totp.now())
+        browser.find_element(By.ID, "username").send_keys(doc["username"])
+        browser.find_element(By.ID, "password").send_keys(doc["password"])
 
         if doc["debug"] == "True":
             browser.save_screenshot(screenshot)
             post_slack(doc, message, screenshot)
 
-        browser.find_element(By.ID, "submitMfa_button").click()
+        browser.find_element(By.ID, "signin_button").click()
 
         time.sleep(5)
+
+        if doc["mfa"] != "" and doc["mfa"] != "NONE":
+            totp = pyotp.TOTP(doc["mfa"])
+
+            browser.find_element(By.ID, "mfacode").send_keys(totp.now())
+
+            if doc["debug"] == "True":
+                browser.save_screenshot(screenshot)
+                post_slack(doc, message, screenshot)
+
+            browser.find_element(By.ID, "submitMfa_button").click()
+
+            time.sleep(5)
+
+    except Exception as ex:
+        print("Error", ex)
 
     if doc["debug"] == "True":
         browser.save_screenshot(screenshot)
@@ -179,14 +183,11 @@ def submit_model(doc, args, browser):
 
         time.sleep(10)
 
-        browser.save_screenshot(screenshot)
-        post_slack(doc, message, screenshot)
-
     except Exception as ex:
         print("Error", ex)
 
-        browser.save_screenshot(screenshot)
-        post_slack(doc, message, screenshot)
+    browser.save_screenshot(screenshot)
+    post_slack(doc, message, screenshot)
 
 
 def click_element_xpath(browser, selector, parent=None):
