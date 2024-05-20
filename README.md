@@ -9,7 +9,7 @@ sudo apt install -y chromium-browser
 sudo apt install -y chromium-codecs-ffmpeg
 sudo apt install -y chromium-chromedriver
 
-pip3 install --upgrade -r requirements.txt
+python -m pip install --upgrade -r requirements.txt
 ```
 
 ## install (Amazon Linux 2)
@@ -23,7 +23,7 @@ sudo amazon-linux-extras install -y epel
 sudo yum install -y git jq
 sudo yum install -y chromium chromedriver
 
-pip3 install --upgrade -r requirements.txt
+python -m pip install --upgrade -r requirements.txt
 ```
 
 ## config

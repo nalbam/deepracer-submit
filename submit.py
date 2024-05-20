@@ -11,6 +11,7 @@ import pyotp
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
@@ -249,7 +250,7 @@ def post_slack(doc, text, screenshot=""):
         if screenshot == "":
             client.chat_postMessage(channel=channel, text=text)
         else:
-            client.files_upload(channels=channel, file=screenshot, title=text)
+            client.files_upload_v2(channels=channel, file=screenshot, title=text)
     except SlackApiError as e:
         print("Error", e.response["error"])
 
